@@ -142,5 +142,7 @@ rsconnect/
 
 # Mac
 .DS_Store
+
 result/
+
 results/

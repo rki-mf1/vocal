@@ -158,7 +158,7 @@ def main(args):
 if __name__ == '__main__':
 
     parser = ap.ArgumentParser(description='Report Generator',
-                                 epilog=''' Please let us know if there is any problem at https://github.com/rki-mf1/sc2-vocal/
+                                 epilog=''' Please let us know if there is any problem at https://github.com/rki-mf1/vocal/
                                         ''')
     parser.add_argument('-s', '--vocal_alert_samples',
                         help='vocal_alerts_samples_all.csv file',

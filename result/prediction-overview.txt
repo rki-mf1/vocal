@@ -1,5 +1,0 @@
-"alert_level"	"n"
-"1"	"grey"	238
-"2"	"lila"	6462
-"3"	"orange"	1
-"4"	"red"	38972

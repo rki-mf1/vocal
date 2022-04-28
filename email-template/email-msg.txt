@@ -1,0 +1,22 @@
+Good day,
+
+Vocal deliver 3 outputs;
+1. vocal_alerts_clusters_summaries_all.csv
+2. vocal_alerts_samples_all.csv
+3. prediction_overview.txt
+--------------------------------
+
+## How to interprete result.
+| Alert color | Description | Impact | 
+-| Pink | Variant is known as VOC/VOI and containing MOC or new mutations.   | HIGH |
+-| Red | Not VOC/VOI but contain high MOC or ROI, and a new matuation (likely to cause a problem/ new dangerous).  | HIGH |
+-| Orange | Variant contains moderately muations, or also possibly consider them either VUM or De-escalated variant.   | MODERATE |
+-| Lila | Mostly harmless variant (near-zero mutation size for MOC or ROI). | LOW |
+-| Grey | No evidence of impact (either no MOC or no ROI).     | LOW |
+
+
+Please see the attached zip file.
+(format: vocal.out.{from-date}.{to-date}.zip)
+
+Happy analyzing!,
+Vocal Team

@@ -9,7 +9,7 @@ Note: * warning !! VOCAL supports mac OS and Linux system only
 
 ## Installation
 
-clone this repository to your computer:
+clone this repository:
 ```
 git clone https://github.com/rki-mf1/vocal.git
 ```
@@ -27,18 +27,18 @@ conda activate vocal
 ### Step1: Annotate mutations in the Spike protein
 
 ```bash
-python vocal/vocal.py -i sequences.fasta 
+python vocal/vocal.py -i test-data/sample-test.fasta -o results/variant_table.tsv
 ```
 This creates by default a `variant_table.tsv` file with all mutations. 
 
 ⚠️**Note**: when `VOCAL` is run without option, it realigns each query sequence to the reference Wuhan sequence NC_045512 using the pairwise alignment function in the biopython library.
+ 
+🐌 SLOW ??:  The alignment option in vocal uses a biopython pairwise aligner and can be relatively slow. It is thus recommended to first generate an alignment file of all the sequences before running vocal annotation of the mutations.
+The alignment file (in PSL format) can be created using the tool `pblat` that can be downloaded [here](https://icebert.github.io/pblat/) or simply installed through our provided conda environment.
 
-Alternatively you can use precomputed whole genome alignments of the fasta file as a PSL file with the `--PSL` option. (Improve alignment speed)
+👀 Thus, we can use precomputed whole-genome alignments of the fasta file as a PSL file ( `--PSL` option) to improve alignment speed.
 
 **To generate a PSL file with alignments**
-
-The alignment option in vocal uses biopython pairwise aligner and can be relatively slow. It is thus recommended to first generate an alignment file of all the sequences before running vocal annotation of the mutations.
-The alignment file (in PSL format) can be created using the tool `pblat` that can be downloaded [here](https://icebert.github.io/pblat/) or simply installed through conda:
 
 Example command to run VOCAL with a PSL file;
 ```bash
@@ -62,6 +62,19 @@ Rscript --vanilla "vocal/Script_VOCAL_unified.R" \
 -f variants_with_phenotypes.tsv \
 -o results/ 
 ```
+
+in case we want to include meta data
+```bash
+Rscript --vanilla "vocal/Script_VOCAL_unified.R" \
+-v data/ \
+-f variants_with_phenotypes.tsv \
+-f meta.tsv \
+-o results/ 
+```
+
+meta data must have
+
+
 
 | Syntax      | Description |
 | ----------- | ----------- |

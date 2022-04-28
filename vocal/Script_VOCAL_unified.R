@@ -5,8 +5,8 @@
 ##
 ## The focus of this script is on genericity so all informations that would
 ## be specific to DESH database have been taken out
-## To Run, from the sc2-vocal root:
-## Rscript --vanilla vocal/Script_VOCAL_unified.R -f ../tmp_test/variants_with_phenotype_sc2-global.2021-12-05.29.tsv -a ../tmp_test/report_desh_kl_20211206.tsv -o ../tmp_test/vocal-unified-test
+## To Run, from the vocal root directory:
+## Rscript --vanilla vocal/Script_VOCAL_unified.R -f variants_with_phenotype_sc2-global.tsv -a report.meta.tsv
 ##
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(digest))
@@ -32,7 +32,7 @@ option_list <- list(
     default = file.path(getwd(), "data"),
     help = "directory path where Vocal database is stored (files concerned: ECDC_assigned_variants.csv and escape_data_bloom_lab.csv and filiation_information)"
   ),
-  make_option(c("-o", "--outdir"), default = "result/",
+  make_option(c("-o", "--outdir"), default = "results/",
               help = "Output directory [default %default]"),
   make_option(c("--id_column"), default = "ID",
               help = "Column name for the sample ID (this argument will be used if file_annotations is used)"),
@@ -58,8 +58,7 @@ args_tester <- function(args){
     stop("Require --file_variant_table")
     exit()
   }else{
-    print("Good to Go!")
-    print(args)
+    # print("Good to Go!")
   }
   return (args)
 }
@@ -96,7 +95,6 @@ VOC_KEY = "VariantOfConcern"
 VOI_KEY = "VariantOfInterest"
 OTHER_KEY = "Other"
 
-## TODO Hugues: change column VariantType to VariantClass
 
 ID_COL = args$id_column
 DATE_COL = args$date_column
@@ -109,10 +107,9 @@ VARIANT_CLASS_COL = "VariantType"
 indel_max_size = 5 # larger indel will not be considered
 indel_bad_qc_size = 10
 
-## TODO check with a distance of 0 (would be much faster to cluster using a group_by)
 Hamming_dist_clustering = 1 # For clustering the alerts detected by Vocal
 
-## TODO This should all be deduced from the information in the metadata file
+## This should all be deduced from the information in the metadata file
 ## Should go out as well
 lookback_duration = NULL
 ## File paths and dates
@@ -143,8 +140,7 @@ antibody_escape_score_raw = read_csv(file_BLOOM_mutation_csv,
                                      col_types = "cccicciccdcddddcic")
 
 ## Prepare the BLOOM score
-## TODO Hugues: ask Alice how to compute interesting summary values from the BLOOM data
-antibody_escape_score_summary = antibody_escape_score_raw %>%
+antibody_escape_score_summary = suppressMessages( antibody_escape_score_raw %>%
   filter(eliciting_virus == "SARS-CoV-2") %>%
   group_by(wildtype, site, mutation) %>%
   summarize(n_measure = n(),
@@ -155,9 +151,10 @@ antibody_escape_score_summary = antibody_escape_score_raw %>%
             )) %>%
   ungroup() %>%
   mutate(aa_pattern = glue("{wildtype}{site}{mutation}"))
+)
 
 ## Gathering Information about the set of Variants of Concern and Variants of Interest
-## TODO Hugues: make the parsing of the files more robust (especially column names)
+## Make the parsing of the files more robust (especially column names)
 ECDC_variants = read_csv(file_ECDCvariants_csv, , col_types = cols()) #,  show_col_types = FALSE)
 variants_filiation = read_tsv(file_variant_filiations_csv, , col_types = cols())
 
@@ -169,7 +166,7 @@ VariantsOfConcern = ECDC_variants %>% filter(Status == "VOC") %>%
     names_to = "lineage_type",
     values_to = "absolute.lineage"
   ) %>%
-  filter(absolute.lineage %>% str_starts("[A-Z]")) %>% #TODO: improve regexp
+  filter(absolute.lineage %>% str_starts("[A-Z]")) %>% 
   pull(absolute.lineage) %>% unique()
 
 VariantsOfInterest = ECDC_variants %>% filter(Status == "VOI") %>%
@@ -180,7 +177,7 @@ VariantsOfInterest = ECDC_variants %>% filter(Status == "VOI") %>%
     names_to = "lineage_type",
     values_to = "absolute.lineage"
   ) %>%
-  filter(absolute.lineage %>% str_starts("[A-Z]")) %>% #TODO: improve regexp
+  filter(absolute.lineage %>% str_starts("[A-Z]")) %>% 
   pull(absolute.lineage) %>% unique()
 
 #print(VariantsOfConcern)
@@ -229,7 +226,7 @@ if (file.exists(file_annotations)) {
     )
   
 } else{
-  warning("No meta information is given")
+  warning("No meta information is given \n")
   
   # metadata <-  data.frame()
   metadata = var_pheno %>% distinct(ID)
@@ -327,14 +324,14 @@ score_mutation <- function(pheno_table) {
         TRUE ~ 0
       )
     ) %>% mutate(across(LineageDefiningMutation:NotAnnotated, as.integer))
-  pheno_table_with_score = inner_join(pheno_table_infomask,
-                                      scores_combination)
+  pheno_table_with_score = suppressMessages(inner_join(pheno_table_infomask,
+                                      scores_combination))
   return(pheno_table_with_score)
 }
 
 var_pheno_wide_filter_with_score = score_mutation(var_pheno_wide_filter)
 
-var_pheno_score_summary = var_pheno_wide_filter_with_score %>%
+var_pheno_score_summary = suppressMessages(var_pheno_wide_filter_with_score %>%
   left_join(antibody_escape_score_summary, by = c("aa_pattern")) %>%
   group_by(across(any_of(
     c(
@@ -358,7 +355,7 @@ var_pheno_score_summary = var_pheno_wide_filter_with_score %>%
            .names = "sum_of_{.col}")
   ) %>%
   ungroup()
-
+)
 ### If a latest annotation for the
 ### lineage is provided, we add a column
 if (FALSE) {
@@ -384,7 +381,6 @@ alerts_colors = c(
 )
 alert_codes = factor(names(alerts_colors), ordered = TRUE)
 
-## TODO: do some more tests on the data
 var_pheno_summary_wide = var_pheno_score_summary %>%
   pivot_wider(
     names_from = all_of(MUT_TYPE_COL),
@@ -411,6 +407,39 @@ var_pheno_summary_wide = var_pheno_score_summary %>%
 ## Version 1 with hard set thresholds
 compute_alert_levels_v1 <- function(pheno_table_wide) {
   ## WARNING: all variable names are hard coded in this function
+
+  if(! "s_roi_I" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_roi_I"] = 0}
+  if(! "s_moc_I" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_moc_I"] = 0}
+  if(! "s_moc_M" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_moc_M"] = 0}
+  if(! "s_roi_M" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_roi_M"] = 0}
+  if(! "s_moc_D" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_moc_D"] = 0}
+  if(! "s_roi_D" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_roi_D"] = 0}
+  if(! "s_pm_M" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_pm_M"] = 0}
+    if(! "s_pm_D" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_pm_D"] = 0}
+    if(! "s_pm_I" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["s_pm_I"] = 0}
+
+    if(! "nMutationsTotal_M" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["nMutationsTotal_M"] = 0}
+    if(! "nMutationsTotal_D" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["nMutationsTotal_D"] = 0}
+    if(! "nMutationsTotal_I" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["nMutationsTotal_I"] = 0}
+    if(! "nLineageDefining_M" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["nLineageDefining_M"] = 0}
+    if(! "nLineageDefining_D" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["nLineageDefining_D"] = 0}
+    if(! "nLineageDefining_I" %in% colnames(pheno_table_wide))
+  {pheno_table_wide["nLineageDefining_I"] = 0}
+
   pheno_table_wide_with_alert = pheno_table_wide %>%
     mutate(
       s_moc_roi_tot = (s_moc_M + s_moc_D +
@@ -438,11 +467,13 @@ compute_alert_levels_v1 <- function(pheno_table_wide) {
   return(pheno_table_wide_with_alert)
 }
 
-
 var_pheno_summary_wide_with_alert = compute_alert_levels_v1(var_pheno_summary_wide)
 
 prediction_overview = var_pheno_summary_wide_with_alert %>% group_by(alert_level) %>% count()
+message("\n Prediction Results")
 print(prediction_overview)
+message("\n")
+
 write.table(
   prediction_overview,
   file = file.path(out_path, "prediction-overview.txt"),
@@ -485,7 +516,7 @@ mutations_per_alert_level = var_pheno_summary_wide_with_alert  %>%
   ungroup() %>%
   filter(alert_level != "grey") %>%
   select(ID, alert_level) %>%
-  distinct() %>% ##WARNING THIS IS A HOTFIX
+  distinct() %>% ## WARNING THIS IS A HOTFIX
   inner_join(var_pheno_wide_filter %>%
                ungroup() %>% select(ID, aa_pattern)) %>%
   mutate(value = 1L) %>%
@@ -508,16 +539,18 @@ alerts_with_clusters_ID = alert_level_groups_with_clusters %>% select(-data) %>%
   unnest(c(alert_level, clusters)) %>%
   rename(cluster_ID_in_alert_level = cluster_ID)
 
-vocal_list_samples_with_alert = var_pheno_summary_wide_with_alert %>%
+vocal_list_samples_with_alert = suppressMessages(var_pheno_summary_wide_with_alert %>%
   left_join(alerts_with_clusters_ID) %>%
   arrange(desc(alert_level),
           desc(s_moc_roi_tot),
           desc(cluster_size),
           desc(DATE_COL))
-
+  )
 ########### Output goes Here ###########
-print('Write Results')
-vocal_common_mutations_in_clusters = vocal_list_samples_with_alert %>%
+message('\n Write Results at:', out_path)
+message("\n")
+
+vocal_common_mutations_in_clusters = suppressMessages( vocal_list_samples_with_alert %>%
   filter(alert_level != "grey") %>%
   inner_join(var_pheno_wide_filter) %>%
   group_by(alert_level, cluster_ID_in_alert_level) %>%
@@ -545,23 +578,24 @@ vocal_common_mutations_in_clusters = vocal_list_samples_with_alert %>%
     #                                    fixed = TRUE, value=TRUE),
     #                               collapse = ","),
   ) %>%
-  ungroup() %>% arrange(desc(alert_level), cluster_ID_in_alert_level)
+  ungroup() %>% arrange(desc(alert_level), cluster_ID_in_alert_level))
 
-vocal_list_clusters_properties = vocal_list_samples_with_alert %>%
-  filter(!is.na(cluster_ID_in_alert_level)) %>%
-  group_by(alert_level, cluster_ID_in_alert_level, cluster_size) %>%
-  summarize(
-    last_seen_isolate = max(.data[[DATE_COL]]),
-    first_seen_isolate = min(.data[[DATE_COL]]),
-    date_range = difftime(last_seen_isolate,
-                          first_seen_isolate,
-                          units = "days"),
-    across(starts_with("s_"), ~ round(mean(.), d = 1), .names = "{.col}.avg"),
-    across(contains("_escape_"), ~ round(mean(.), d = 1), .names = "{.col}"),
-    Lineages = str_c(.data[[LINEAGE_COL]] %>% unique(), collapse =  ",")
+vocal_list_clusters_properties = suppressMessages(vocal_list_samples_with_alert %>%
+    filter(!is.na(cluster_ID_in_alert_level)) %>%
+    group_by(alert_level, cluster_ID_in_alert_level, cluster_size) %>%
+    summarize(
+      last_seen_isolate = max(.data[[DATE_COL]]),
+      first_seen_isolate = min(.data[[DATE_COL]]),
+      date_range = difftime(last_seen_isolate,
+                            first_seen_isolate,
+                            units = "days"),
+      across(starts_with("s_"), ~ round(mean(.), d = 1), .names = "{.col}.avg"),
+      across(contains("_escape_"), ~ round(mean(.), d = 1), .names = "{.col}"),
+      Lineages = str_c(.data[[LINEAGE_COL]] %>% unique(), collapse =  ",")
+    )
   )
 
-vocal_list_clusters_properties_with_mutations = vocal_common_mutations_in_clusters %>%
+vocal_list_clusters_properties_with_mutations = suppressMessages(vocal_common_mutations_in_clusters %>%
   inner_join(vocal_list_clusters_properties) %>%
   arrange(desc(alert_level),
           desc(s_moc_roi_tot.avg),
@@ -577,7 +611,7 @@ vocal_list_clusters_properties_with_mutations = vocal_common_mutations_in_cluste
   relocate(cluster_ID_in_alert_level, .after = last_col()) %>%
   rename(n_samples = cluster_size) %>%
   mutate(across(where(is.numeric), ~ replace_na(.x , 0)))
-
+)
 write_csv(
   vocal_list_clusters_properties_with_mutations,
   file = file.path(out_path,
@@ -643,4 +677,6 @@ error = function(e) {
     append = TRUE,
     sep = "\n"
   )
+  stop("error at vocal-samples-out", as.character(e))
 })
+message("** Success **")
