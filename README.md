@@ -1,11 +1,17 @@
-# VOCAL: Variant Of Concern ALert and prioritization 
+<div id="top"></div>
 
+<div align="center">
+<h1 align="center"> VOCAL: Variant Of Concern ALert and prioritization </h1>
+</div>
 The goal of VOCAL is to detect sc-2 emerging variants from collected bases of genomes, before their annotation by phylogenetic analysis.
 It does so by parsing sc2 genomes and detecting amino acids mutations in the spike proteins that can be associated with a phenotypic change. The phenotypic changes are annotated according to the knowledge accumulated on previous variants. Owing to the limited size of the genome, convergent evolution is expected to take place. 
 
-# Quick start VOCAL
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
 
-Note: * warning !! VOCAL supports mac OS and Linux system only
+# Getting Started
+
+⚠️**Note**: 🔌 Right now, VOCAL supports mac OS and Linux system only 💻 
 
 ## Installation
 
@@ -22,7 +28,7 @@ conda activate vocal
 ```
 
 ## Running Vocal
-... in two steps.
+... in three steps.
 
 ### Step1: Annotate mutations in the Spike protein
 
@@ -36,59 +42,55 @@ This creates by default a `variant_table.tsv` file with all mutations.
 🐌 SLOW ??:  The alignment option in vocal uses a biopython pairwise aligner and can be relatively slow. It is thus recommended to first generate an alignment file of all the sequences before running vocal annotation of the mutations.
 The alignment file (in PSL format) can be created using the tool `pblat` that can be downloaded [here](https://icebert.github.io/pblat/) or simply installed through our provided conda environment.
 
-👀 Thus, we can use precomputed whole-genome alignments of the fasta file as a PSL file ( `--PSL` option) to improve alignment speed.
+👀 Thus, if we want to use precomputed whole-genome alignments of the fasta file as a PSL file ( `--PSL` option) to improve alignment speed please see the below section, otherwise please continue to **step2**.
 
 **To generate a PSL file with alignments**
 
-Example command to run VOCAL with a PSL file;
+Example command to generate PSL format.
 ```bash
-pblat ref.fasta output.psl input.fasta -threads=32
-```
-```bash
-python vocal/vocal.py -i sequences.fasta --psl output.psl -o variant_table.tsv
+pblat test-data/ref.fna test-data/sample-test.fasta -threads=4 results/output.psl
 ```
 
-Then (continue from # 1): Annotate mutation phenotypes
+To run VOCAL with a PSL file;
 ```bash
-python vocal/Mutations2Function.py -i variant_table.tsv -a data/table_cov2_mutations_annotation.tsv -o variants_with_phenotypes.tsv 
+python vocal/vocal.py -i test-data/sample-test.fasta --PSL results/output.psl -o results/variant_table.tsv
 ```
-By default, this will create the consolidated table ("`variants_with_phenotypes.tsv`") of mutations with phenotype annotation.
 
-### Step2:  Detect/Alert emerging variants
+### Step2: Annotate mutation phenotypes
+
+```bash
+python vocal/Mutations2Function.py -i results/variant_table.tsv -a data/table_cov2_mutations_annotation.tsv -o results/variants_with_phenotypes.tsv 
+```
+By default, this step will create the consolidated table ("`variants_with_phenotypes.tsv`") of mutations with phenotype annotation. 
+
+### Step3: Detect/Alert emerging variants
 
 ```bash
 Rscript --vanilla "vocal/Script_VOCAL_unified.R" \
--v data/ \
--f variants_with_phenotypes.tsv \
+-f results/variants_with_phenotypes.tsv \
 -o results/ 
 ```
 
-in case we want to include meta data
+in case we want to include metadata file, use (-a)
 ```bash
 Rscript --vanilla "vocal/Script_VOCAL_unified.R" \
--v data/ \
--f variants_with_phenotypes.tsv \
--f meta.tsv \
+-f results/variants_with_phenotypes.tsv \
+-a test-data/meta.tsv \
 -o results/ 
 ```
+⚠️**Note**: meta data must have these information
+* ID column (match with sample ID in FASTA file)
+* LINEAGE column (e.g., B.1.1.7, BA.1)
+* SAMPLING DATE column (the date that a sample was collected) (format YYYY-mm-dd)
 
-meta data must have
+Finally, we can easily generate report into HTML format at the end of the analysis.
 
-
-
-| Syntax      | Description |
-| ----------- | ----------- |
-| -f        | File corresponding to the variants (output from Mutations2Function.py *variants_with_phenotypes.tsv)     |
-| -a        | File containing metadata on the samples        |
-| -v        | Directory path where VOCAL database is stored (files concerned: ECDC_assigned_variants.csv and escape_data_bloom_lab.csv and filiation_information)        |
-| -o        | Output directory        |
-| -file_annot_latest        | File with latest lineage annotation from Desh system [optional argument]      |
-| --lineage_column        | Column name of reporting LINEAGE information in metadata file  |
-| --date_column        | Column name of reporting sampling date information in metadata file   |
-| --geoloc_column        | Column name of geolocalisation information in metadata file      |
-| --id_column  | Column name of the sample ID in metadata file   |
-
---------
+```bash
+python  vocal/Reporter.py  \
+        -s results/vocal-alerts-samples-all.csv \
+        -c results/vocal-alerts-clusters-summaries-all.csv \
+        -o results/vocal-report.html 
+```
 
 # How to interprete result.
 
@@ -102,92 +104,23 @@ Vocal output an alert level in 5 different colours which can be classified into 
 | Lila | Mostly harmless variant (near-zero mutation size for MOC or ROI). | LOW |
 | Grey | No evidence of impact (either no MOC or no ROI).     | LOW |
 
-# VOCAL Ecosystem
+# Documentation.
 
-## Report
+<a href="https://github.com/rki-mf1/vocal/wiki"><strong>Explore the docs »</strong></a>
 
-```bash
-python  vocal/Reporter.py  \
-        -s vocal-alerts-samples-all.csv \
-        -c vocal-alerts-clusters-summaries-all.csv \
-        -o vocal-report.html \
-        --from_date $VOCAL_LOOKBACK \
-        --to_date $VOCAL_SELECTED_DATE
-```
+# Contact
 
-## Selector
-Selector tool offer two functionalites to aid processing in VOCAL.
-* A. 'select-desh' command
+Did you find a bug?🐛 Suggestion/Feedback/Feature request?👨‍💻 please visit [GitHub Issues](https://github.com/ultralytics/yolov5/issues)
 
-    ⚠️**Note**: This tool works only for the autopilot system.!!⚠️
+For business inquiries or professional support requests 🍺 please contact 
+Hölzer, Martin(<HoelzerM@rki.de>) or Richard, Hugues (<RichardH@rki.de>)
 
-    This tool is used to select a fasta file with a given date range, and it will output a result in a merged fasta file.  
-    Two important arguments are required. 
+# Acknowledgments
 
-    * '`-s`', A start date.
-    * '`-e`', Number of day we want to look back.
+* Original Idea: SC2 Evolution Working group - M. von Kleist, S. Clavignac-Spencer
 
-    For example;  we will select 2021-11-08 and use a 5-day lookback (`-s 2021-11-08 -e 5`). This will give results; 2021-11-08 2021-11-07 2021-11-06 2021-11-05 2021-11-04 2021-11-03 2021-11-02
+* Funding: HERA project 
 
-    Example command;
-    ```bash
-    python Selector.py select-desh -i ~/wissdaten/MF1_SC2_Backup/sc2/incoming/desh -o output/ -s 2021-11-08 -e 35
-    ```
-* B. 'convert-covSonar' command
+# Citation ?
+XXXXX
 
-    This tool convert covSonar output (from match command) into Vocal format which can be used in detection.
-    
-    Requreid argument;
-    * `-i`, Input file from covSonar output (*match command)
-    * `-o`, Output file (e.g., variants_with_phenotype_sc2-global.tsv)')
-    * `-a`, Vocal DB, please use "sc2-vocal/data/table_cov2_mutations_annotation.tsv",
-
-    Optional argument;
-    *  `--cpus`, Number of cpus to use (default: 1)
-  
-    Example command;
-    ```bash
-    python vocal/Selector.py  convert-covSonar -i covSonar.match.tsv -a data/table_cov2_mutations_annotation.tsv -o table_cov2_mutations_annotation.tsv --cpus 80
-    ```
-
-## Update the VOCAL's Knowledge base 
-
-This tool is used to update VOCAL annotation database. Currently, we only support 
-* [NetaZuckerman](https://github.com/NetaZuckerman/covid19/blob/master/mutationsTable.xlsx) source
-* []
-
-We can provide `--online` tag, the program  will try to download the latest files from sources.
-
-Example command;
-
-To create a new annotation file.
-```bash
-python  vocal/update.vocalDB.py --online  -o table_cov2_mutations_annotation.tsv
-```
-
-If we want to update our table_cov2_mutations_annotation.tsv, just provide the old table_cov2_mutations_annotation.tsv in -i tag.
-```bash
-python vocal/update.vocalDB.py --online -i data/table_cov2_mutations_annotation.tsv  \
---out_file data/table_cov2_mutations_annotation.tsv
-```
-
-If we want to update our table_cov2_mutations_annotation.tsv without download from source (manually download)
-```bash
-python vocal/update.vocalDB.py -i data/table_cov2_mutations_annotation.tsv  \
--n ../vocal-test-annotation_DB/NetaZuckerman_mutationsTable.xlsx  \
--t ../vocal-test-annotation_DB/Tabelle_VOC-PCR-Finder.xlsx  \
---out_file data/table_cov2_mutations_annotation.tsv
-```
-
-## Update the Parent-Child Lineage.
-
-We use parent-child information from [Pango-designation](https://github.com/cov-lineages/pango-designation/) Github. The script requires `lineags.csv` and `alias_key.json` files from Pango-designation Github to reconstruct the information.
-
-Example command;
-```bash
-python update.lineages.py -l lineags.csv -a alias_key.json -o lineages.all.tsv
-```
-or automatically download  
-```bash
-python update.lineages.py --online -o lineages.all.tsv
-```
