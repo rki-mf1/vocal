@@ -8,7 +8,7 @@ It does so by parsing sc2 genomes and detecting amino acids mutations in the spi
 
 # Getting Started
 
-⚠️**Note**: 🔌 Right now, VOCAL supports mac OS and Linux system only 💻 
+⚠️**Note**: 🔌 Right now, VOCAL tested on Linux system only 💻 
 
 ## Installation
 
@@ -103,14 +103,14 @@ Vocal output an alert level in 5 different colours which can be classified into 
 
 # Documentation.
 
-<a href="https://github.com/rki-mf1/vocal/wiki"><strong>Explore the docs »</strong></a>
+<a href="https://rki-mf1.github.io/vocal-doc/"><strong>Explore the docs »</strong></a>
 
 # Contact
 
-Did you find a bug?🐛 Suggestion/Feedback/Feature request?👨‍💻 please visit [GitHub Issues](https://github.com/ultralytics/yolov5/issues)
+Did you find a bug?🐛 Suggestion/Feedback/Feature request?👨‍💻 please visit [GitHub Issues](https://github.com/rki-mf1/vocal/issues)
 
 For business inquiries or professional support requests 🍺 please contact 
-Hölzer, Martin(<HoelzerM@rki.de>) or Richard, Hugues (<RichardH@rki.de>)
+Dr. Hölzer, Martin(<HoelzerM@rki.de>) or Dr. Richard, Hugues (<RichardH@rki.de>)
 
 # Acknowledgments
 
