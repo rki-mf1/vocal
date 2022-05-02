@@ -1,0 +1,166 @@
+amino acid,nucleotide,ID,consonar_aa_patern,vocal_format,Note
+SGF3675-3677del,del:11288:9,B.1.1.7,,SGF3675-3677del,ORF1a (should we include other gene region?))
+HV69-70del,del:21765:6,B.1.1.7,S:del:68:3,HV69-70del,
+Y144-144del,del:21991:3,B.1.1.7,S:del:143:2,Y144-144del,
+SGF3675-3677del,del:11288:9,B.1.351,,SGF3675-3677del,ORF1a (should we include other gene region?))
+SGF3675-3677del,del:11288:9,P.1,,SGF3675-3677del,ORF1a (should we include other gene region?))
+HV69-70del,del:21765:6,PutativePhenotype,S:del:68:3,HV69-70del,MutationOfConcern
+Y144-144del,del:21992:3,PutativePhenotype,S:del:143:2,Y144-144del,MutationOfConcern
+I210del,del:22189:3,PutativePhenotype,,I210-210del,MutationOfConcern    (should be I210del or I210-210del?)
+LAL242-244del,del:22286:9,PutativePhenotype,,LAL242-244del,MutationOfConcern
+L141,del:21983:9,A.2.5.1,,LGV141-143del,
+H69,del:21765:6,A.28,S:del:68:3,HV69-70del,
+F140,del:21982:4,A.29,,F140-140del,"deletion size 4, outbreak.info report del144/144 del1414/141"
+V143,del:21992:2,A.29,,G140-140del,"deletion size 2,  outbreak.info report del144/144 del1414/141"
+N211,del:22194:3,A.29,,N211-211del,no report for this position in outbrek.info
+Y145,del:21993:3,A.30,,Y145-145del,outbreak.info report del144/144 
+I210,del:22190:3,A.30,,I210-210del,
+R246,del:22299:9,A.30,,RSY246-246del,outbreak.info report del247/249
+R246,del:22297:9,B.1.243.2,,RSY246-248del,
+L242,del:22286:9,B.1.351,,LAL242-244del,outbreak.info  report del241/243 
+L242,del:22286:9,B.1.351.2,,LAL242-244del,outbreak.info  report del241/243 
+H69,del:21765:6,B.1.415.1,S:del:68:3,HV69-70del,
+L242,del:22286:3,B.1.415.1,,L242-242del,no report for this position in outbrek.info
+A67,del:21764:1,B.1.525,,A67-67del,outbreak.info report del69/70
+I68,del:21767:4,B.1.525,,I68-68del,"deletion size 4, outbreak.info report del69/70(HV69-70del)"
+Y145,del:21993:3,B.1.525,,Y145-145del,outbreak.info report del144/144
+Y145,del:21993:3,B.1.526.1,,Y145-145del,
+Y145,del:21991:3,B.1.616,,Y145-145del,outbreak.info report del144/144
+E156,del:22029:6,B.1.617.2,S:del:156:3,EF156-157del,outbreak.info report del157/158 
+Y145,del:21993:6,B.1.618,,Y145-145del,outbreak.info report del145/146
+H69,del:21765:6,B.1.620,S:del:68:3,HV69-70del,
+Y145,del:21993:3,B.1.620,,Y145-145del,outbreak.info report del144/144
+L241,del:22286:7,B.1.620,,?,"deletion size 7, outbreak.info report del241/243"
+L244,del:22294:2,B.1.620,,L244-244del,"deletion size 2,outbreak.info report del241/243"
+H69,del:21765:6,B.1.625,S:del:68:3,HV69-70del,
+Y145,del:21993:3,B.1.625,,Y145-145del,
+A67,del:21761:9,B.1.626,,AIH67-69del,outbreak.info report del66/68 
+Y145,del:21993:3,B.1.630,,Y145-145del,outbreak.info report del144/144 
+A243,del:22289:6,B.1.630,,AL243-244del,outbreak.info report del243/244 
+Y145,del:21993:3,B.1.633,,Y145-145del,no report for this position in outbreak.info
+H69,del:21765:6,B.1.634,S:del:68:3,HV69-70del,outbreak.info report del69/70 
+L141,del:21982:6,B.1.635,,LG141-142del,"deletion size 6, del141/144 "
+Y145,del:21993:3,B.1.637,,Y145-145del,outbreak.info report del144/144 
+Y145,del:21993:3,B.1.637.1,,Y145-145del,outbreak.info report del144/144 
+H69,del:21765:6,B.1.637.1,S:del:68:3,HV69-70del,"outbreak.info report 	del69/70 "
+L244,del:22292:12,B.1.637.1,,LHRS244-247del,outbreak.info report del244/247 
+Y145,del:21993:3,B.1.1.318,,Y145-145del,no B.1.1.318 in outbreak.info
+E156,del:22028:9,B.1.1.523,,EFR156-158del,no B.1.1.523 in outbreak.info
+L141,del:21981:9,B.1.1.524,,?,"no B.1.1.524 in outbreak.info, https://www.ncbi.nlm.nih.gov/gene/43740568 deletion start at 21981 run to 21989"
+Y145,del:21993:3,B.1.1.525,,Y145-145del,no B.1.1.318 in outbreak.info
+H69,del:21765:6,B.1.1.7,S:del:68:3,HV69-70del,
+Y145,del:21993:3,B.1.1.7,,Y145-145del,outbreak.info report del144/144
+Y145,del:21993:3,C.1.2,,Y145-145del,outbreak.info report del243/244 
+A243,del:22289:6,C.1.2,,AL243-244del,
+H69,del:21765:6,C.36.3,S:del:68:3,HV69-70del,
+H69,del:21765:6,C.36.3.1,S:del:68:3,HV69-70del,
+R246,del:22299:21,C.37,,RSYLTPG246-252del,outbreak.info report del247/253 
+R246,del:22299:21,C.37.1,,RSYLTPG246-252del,no report for this position in outbreak.info
+D138,del:21973:21,C.38,,DPFLGVY138-144del,outbreak.info report del138/144 
+Y145,del:21992:3,C.39,,Y145-145del,no report for this position in outbreak.info
+L244,del:22292:12,C.40,,LHRS244-247del,no report for this position in outbreak.info
+C136,del:21968:27,AT.1,,CNDPFLGVY136-144del,
+Y145,del:21991:3,AV.1,,Y145-145del,outbreak.info report del144/144
+E156,del:22029:6,AY.1,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.2,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.3,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.3.1,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.4,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.4.2,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.4.2.1,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.4.4,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.4.5,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.5,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.12,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.23,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,A.23.1,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.24,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.26&AY.65,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.26,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.28,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.29,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.30,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.31,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.33,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.34,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.35,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.37,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.38,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.39,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.39.2,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.40,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.41,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.42,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.43,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.46,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.46.1,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.46.2,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.46.3,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.46.4,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.46.5,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.46.6,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.47,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.49,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.55,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.56,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.57,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.58,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.59,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.60,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.62,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.63,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.65,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.69,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.70,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.72,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.73,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.77,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.80,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.85,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.91,S:del:156:3,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.97,S:del:156:3     ,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.102,S:del:156:3     ,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.104,S:del:156:3     ,EF156-157del,outbreak.info report del157/158
+E156,del:22029:6,AY.121,S:del:156:3     ,EF156-157del,outbreak.info report del157/158
+H69,del:21765:6,BA.1,S:del:68:3,HV69-70del,
+G142,del:21987:9,BA.1,S:del:142:4     ,GVY142-144del,outbreak.info report del143/145 
+N211,del:22194:3,BA.1,S:del:211:2     ,N211-211del,outbreak.info report del212/212
+L24,del:21633:9,BA.2,S:del:24:4,LPP24-26del,outbreak.info report del25/27
+H69,del:21765:6,BA.3,S:del:68:3,HV69-70del,
+G142,del:21987:9,BA.3,S:del:142:4,GVY142-144del,no report for this position in outbreak.info
+N211,del:22194:3,BA.3,S:del:211:2     ,N211-211del,outbreak.info report del212/212
+L141,del:21983:9,P.3,,LGV141-143del,
+Y144,del:21993:1,P.5,,Y144-144del,no report for this position in outbreak.info
+G142,del:21986:6,P.5,,GV142-143del,no report for this position in outbreak.info
+H69,del:21765:6,Q.3,S:del:68:3      ,HV69-70del,
+Y145,del:21993:3,Q.3,S:del:145,Y145-145del,outbreak.info report del144/144
+H69,del:21765:6,Q.6,S:del:68:3      ,HV69-70del,
+Y145,del:21993:3,Q.6,,Y145-145del,outbreak.info report del144/144
+H69,del:21765:6,Q.7,S:del:68:3      ,HV69-70del,
+Y145,del:21993:3,Q.7,,Y145-145del,outbreak.info report del144/144
+H69,del:21765:6,Q.8,S:del:68:3      ,HV69-70del,
+Y145,del:21993:3,Q.8,,Y145-145del,outbreak.info report del144/144
+H69,del:21765:6,PDI 161 -NA,S:del:68:3      ,HV69-70del,no information in outbreak 
+A67,del:21762:1,PDI162-NA,,A67-67del,no information in outbreak 
+I68,del:21767:4,PDI162-NA,,I68-68del,no information in outbreak 
+Y145,del:21993:3,PDI162-NA,,Y145-145del,no information in outbreak 
+H69,del:21765:6,PDI166-NA,,HV69-70del,no information in outbreak 
+L141,del:21983:9,PDI169-1-NA,,L141-141del,no information in outbreak 
+L242,del:22286:9,PDI169-3-NA,,L242-242del,no information in outbreak 
+Y145,del:21991:3,PDI195-1,,Y145-145del,no information in outbreak 
+E156,del:22029:6,PDI 219 (AY.33 Plus . Delta D),,E156-156del,no information in outbreak 
+E156,del:22029:6,PDI 267.1 -Mediator (Delta D),,E156-156del,no information in outbreak 
+E156,del:22029:6,PDI 267.1 (Delta D based),,E156-156del,no information in outbreak 
+E156,del:22029:6,PDI 264 - Mediator (Delta D),,E156-156del,no information in outbreak 
+E156,del:22029:6,PDI 264 (Delta D based),,E156-156del,no information in outbreak 
+H69,del:21765:6,B.1.1.529,S:del:68:3      ,HV69-70del,
+G142,del:21987:9,B.1.1.529,S:del:142:4     ,GVY142-144del,
+N211,del:22194:3,B.1.1.529,S:del:211:2     ,N211-211del,
+H69,del:21765:6,BA.1.1,S:del:68:3,HV69-70del,
+G142,del:21987:9,BA.1.1,S:del:142:4     ,GVY142-144del,
+N211,del:22194:3,BA.1.1,S:del:211:2     ,N211-211del,
+H69,del:21765:6,NONE,S:del:68:3,HV69-70del,"tmp solution for BA.2, omicron"
+G142,del:21987:9,NONE,S:del:142:4     ,GVY142-144del,"tmp solution for BA.2, omicron"
+N211,del:22194:3,NONE,S:del:211:2     ,N211-211del,"tmp solution for BA.2, omicron"
+H69,del:21765:6,Q.1,S:del:68:3,HV69-70del,
+H69,del:21765:6,Q.2,S:del:68:3 ,HV69-70del,

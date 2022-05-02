@@ -10,7 +10,8 @@ import pandas as pd
 import requests
 import shutil
 import re
-from utils.utility import ROOT_DIR
+from utils.utility import ROOT_DIR, update_version, get_current_date
+
 
 # URL
 dict_annotation_db = {
@@ -75,8 +76,9 @@ def NetaZuckerman(input_NetaZuckerman):
     nut_pattern = re.compile("([*a-zA-Z]+)([0-9]+)")
     # FilterNetaZuckerman_dfs only S Gene
     NetaZuckerman_dfs = pd.read_excel(
-        input_NetaZuckerman, sheet_name="bodek  (1)", converters={"Position": int}
+        input_NetaZuckerman, sheet_name=0, converters={"Position": int}
     )
+    print(NetaZuckerman_dfs)
     _df = NetaZuckerman_dfs[NetaZuckerman_dfs["protein"] == "S"]
     _df = _df.reset_index(drop=True)
     # Fix variant name
@@ -214,11 +216,11 @@ def main(args):
     if _online:
         start_download(tmp_dir)
         _NetaZuckerman_path = os.path.join(tmp_dir, "NetaZuckerman")
-        _RKI_VOC_PCR_Finder_path = os.path.join(tmp_dir, "RKI-VOC-PCR-Finder")
+        #_RKI_VOC_PCR_Finder_path = os.path.join(tmp_dir, "RKI-VOC-PCR-Finder")
         pass
     else:
         _NetaZuckerman_path = args.netazuckerman
-        _RKI_VOC_PCR_Finder_path = args.tabelle_VOC_PCR_Finder
+        #_RKI_VOC_PCR_Finder_path = args.tabelle_VOC_PCR_Finder
 
     # Read our annotation file
     if os.path.isfile(_our_annotation_path):
@@ -242,6 +244,11 @@ def main(args):
         print("Update the SC2 mutation from NetaZuckerman ")
         final_NetaZuckerman_dfs_full_table = NetaZuckerman(_NetaZuckerman_path)
         print(final_NetaZuckerman_dfs_full_table)
+        # update_version()
+        version_file = os.path.join(ROOT_DIR, "data/.version")
+        update_version(
+                "SARS-CoV-2 mutation information", get_current_date(), version_file
+            )
     else:
         print("Not Found:", _NetaZuckerman_path)
         final_NetaZuckerman_dfs_full_table = pd.DataFrame(
@@ -308,13 +315,7 @@ if __name__ == "__main__":
         help="please visit https://github.com/NetaZuckerman/covid19/blob/master/mutationsTable.xlsx (NetaZuckerman_mutationsTable.xlsx)",
         default="../data/table_cov2_mutations_annotation.csv",
     )
-    parser.add_argument(
-        "-t",
-        "--tabelle_VOC_PCR_Finder",
-        required=False,
-        help=" please visit https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/DESH/Tabelle_VOC-PCR-Finder.xlsx?__blob=publicationFile (Tabelle_VOC-PCR-Finder.xlsx)",
-        default="../data/table_cov2_mutations_annotation.csv",
-    )
+
 
     parser.add_argument(
         "-o",
@@ -338,7 +339,14 @@ if __name__ == "__main__":
     t2 = ti.default_timer()
     print("Processing time: {} seconds".format(round(t2 - t1), 2))
 
-
+####### old method 
+#    parser.add_argument(
+#        "-t",
+#        "--tabelle_VOC_PCR_Finder",
+#        required=False,
+#        help=" please visit https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/DESH/Tabelle_VOC-PCR-Finder.xlsx?__blob=publicationFile (Tabelle_VOC-PCR-Finder.xlsx)",
+#        default="../data/table_cov2_mutations_annotation.csv",
+#    )
 def NetaZuckerman_old(input_NetaZuckerman):
     NetaZuckerman_dfs = pd.read_excel(
         input_NetaZuckerman, sheet_name=None, converters={"Position": int}

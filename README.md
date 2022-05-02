@@ -1,18 +1,20 @@
-# VOCAL: Variant Of Concern ALert and prioritization 
+<div id="top"></div>
 
-The goal of Vocal is to detect sc-2 emerging variants from collected bases of genomes, before their annotation by phylogenetic analysis.
+<div align="center">
+<h1 align="center"> VOCAL: Variant Of Concern ALert and prioritization </h1>
+</div>
+The goal of VOCAL is to detect sc-2 emerging variants from collected bases of genomes, before their annotation by phylogenetic analysis.
 It does so by parsing sc2 genomes and detecting amino acids mutations in the spike proteins that can be associated with a phenotypic change. The phenotypic changes are annotated according to the knowledge accumulated on previous variants. Owing to the limited size of the genome, convergent evolution is expected to take place. 
 
-# Quick start VOCAL
+# Getting Started
 
-Note*: The executable package (`conda install VOCAL` or `pip install VOCAL`) will be avaialable soon. 
+⚠️**Note**: 🔌 Right now, VOCAL tested on Linux system only 💻 
 
 ## Installation
 
-clone this repository to your computer:
+clone this repository:
 ```
 git clone https://github.com/rki-mf1/vocal.git
-
 ```
 
 You can easly install all dependencies with conda:
@@ -23,68 +25,71 @@ conda activate vocal
 ```
 
 ## Running Vocal
-... in two steps.
+... in three steps.
 
 ### Step1: Annotate mutations in the Spike protein
 
 ```bash
-# 1)
-python vocal.py -i sequences.fasta 
+python vocal/vocal.py -i test-data/sample-test.fasta -o results/variant_table.tsv
 ```
 This creates by default a `variant_table.tsv` file with all mutations. 
 
-⚠️**Note**: when `vocal` is run without option, it realigns each query sequence to the reference Wuhan sequence NC_045512 using the pairwise alignment function in the biopython library.
+⚠️**Note**: when `VOCAL` is run without option, it realigns each query sequence to the reference Wuhan sequence NC_045512 using the pairwise alignment function in the biopython library.
+ 
+🐌 SLOW ??:  The alignment option in vocal uses a biopython pairwise aligner and can be relatively slow. It is thus recommended to first generate an alignment file of all the sequences before running vocal annotation of the mutations.
+The alignment file (in PSL format) can be created using the tool `pblat` that can be downloaded [here](https://icebert.github.io/pblat/) or simply installed through our provided conda environment.
 
-Alternatively you can use precomputed whole genome alignments of the fasta file as a PSL file with the `--PSL` option. (Improve alignment speed)
+👀 Thus, if we want to use precomputed whole-genome alignments of the fasta file as a PSL file ( `--PSL` option) to improve alignment speed please see the below section, otherwise please continue to **step2**.
 
 **To generate a PSL file with alignments**
 
-The alignment option in vocal uses biopython pairwise aligner and can be relatively slow. It is thus recommended to first generate an alignment file of all the sequences before running vocal annotation of the mutations.
-The alignment file (in PSL format) can be created using the tool `pblat` that can be downloaded [here](https://icebert.github.io/pblat/) or simply installed through conda:
-
-Example command to run vocal with a PSL file;
+Example command to generate PSL format.
 ```bash
-pblat ref.fasta output.psl input.fasta -threads=32
-
-python vocal.py -i sequences.fasta --psl output.psl -o vocal.tsv
-
+pblat test-data/ref.fna test-data/sample-test.fasta -threads=4 results/output.psl
 ```
 
+To run VOCAL with a PSL file;
 ```bash
-# 2) Then (continue from # 1): Annotate mutation phenotypes
-python Mutations2Function.py -i variant_table.tsv -a data/table_cov2_mutations_annotation.csv -o variants_with_phenotypes.tsv 
+python vocal/vocal.py -i test-data/sample-test.fasta --PSL results/output.psl -o results/variant_table.tsv
 ```
-By default, this will create the consolidated table `variants_with_phenotypes.tsv` of mutations with phenotype annotation.
 
-### Step2:  Detect/Alert emerging variants
+### Step2: Annotate mutation phenotypes
 
 ```bash
-# 3)
+python vocal/Mutations2Function.py -i results/variant_table.tsv -a data/table_cov2_mutations_annotation.tsv -o results/variants_with_phenotypes.tsv 
+```
+By default, this step will create the consolidated table ("`variants_with_phenotypes.tsv`") of mutations with phenotype annotation. 
+
+### Step3: Detect/Alert emerging variants
+
+```bash
 Rscript --vanilla "vocal/Script_VOCAL_unified.R" \
--v data/ \
--f variants_with_phenotypes.tsv \
--o /results/ \
--a meta-information.tsv \
---lineage_column lineage \
---date_column date \
---id_column accession
-
+-f results/variants_with_phenotypes.tsv \
+-o results/ 
 ```
 
-| Syntax      | Description |
-| ----------- | ----------- |
-| -f        | File corresponding to the variants (output from Mutations2Function.py *variants_with_phenotypes.tsv)     |
-| -a        | File containing metadata on the samples        |
-| -v        | Directory path where Vocal database is stored (files concerned: ECDC_assigned_variants.csv and escape_data_bloom_lab.csv and filiation_information)        |
-| -o        | Output directory        |
-| -file_annot_latest        | File with latest lineage annotation from Desh system [optional argument]      |
-| --lineage_column        | Column name of reporting LINEAGE information in metadata file  |
-| --date_column        | Column name of reporting sampling date information in metadata file   |
-| --geoloc_column        | Column name of geolocalisation information in metadata file      |
-| --id_column  | Column name of the sample ID in metadata file   |
+in case we want to include metadata file, use (-a)
+```bash
+Rscript --vanilla "vocal/Script_VOCAL_unified.R" \
+-f results/variants_with_phenotypes.tsv \
+-a test-data/meta.tsv \
+-o results/ 
+```
+⚠️**Note**: meta data must have these information
+* ID column (match with sample ID in FASTA file)
+* LINEAGE column (e.g., B.1.1.7, BA.1)
+* SAMPLING DATE column (the date that a sample was collected) (format YYYY-mm-dd)
 
---------
-## How to interprete result.
+Finally, we can easily generate report into HTML format at the end of the analysis.
+
+```bash
+python  vocal/Reporter.py  \
+        -s results/vocal-alerts-samples-all.csv \
+        -c results/vocal-alerts-clusters-summaries-all.csv \
+        -o results/vocal-report.html 
+```
+
+# How to interprete result.
 
 Vocal output an alert level in 5 different colours which can be classified into 3 ratings.
 
@@ -95,3 +100,24 @@ Vocal output an alert level in 5 different colours which can be classified into 
 | Orange | Variant contains moderately muations, or also possibly consider them either VUM or De-escalated variant.   | MODERATE |
 | Lila | Mostly harmless variant (near-zero mutation size for MOC or ROI). | LOW |
 | Grey | No evidence of impact (either no MOC or no ROI).     | LOW |
+
+# Documentation.
+
+<a href="https://rki-mf1.github.io/vocal-doc/"><strong>Explore the docs »</strong></a>
+
+# Contact
+
+Did you find a bug?🐛 Suggestion/Feedback/Feature request?👨‍💻 please visit [GitHub Issues](https://github.com/rki-mf1/vocal/issues)
+
+For business inquiries or professional support requests 🍺 please contact 
+Dr. Hölzer, Martin(<HoelzerM@rki.de>) or Dr. Richard, Hugues (<RichardH@rki.de>)
+
+# Acknowledgments
+
+* Original Idea: SC2 Evolution Working group - M. von Kleist, S. Clavignac-Spencer
+
+* Funding: HERA project 
+
+# Citation ?
+XXXXX
+
