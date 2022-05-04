@@ -282,55 +282,10 @@ if __name__ == "__main__":
     subparsers.required = True
 
     # print("This tool works for autopilot system only. It uses for selecting a seqeunce with a given timeframe \n")
-    common = ap.ArgumentParser(
-        description=" Both start_date and look_back are requried",
-        add_help=False,
-        epilog="Example of usage: python Selector.py -i ~/wissdaten/MF1_SC2_Backup/sc2/incoming/desh -o /scratch_slow/sc2-dev/output -s 2021-11-08 -e 1",
-    )
-
-    parser_select_desh = subparsers.add_parser(
-        "select-desh",
-        parents=[common],
-        help="Select samples from Desh and output them to fasta file.",
-    )
-
-    # parser.add_argument('-tmp', '--tmp_directory',
-    #                    default="sc2-vocal.tmp/",
-    #                    help='A directory used to hold temporary files, and the directory will automatically cleaned up upon exiting [default: ]')
-    parser_select_desh.add_argument(
-        "-i",
-        "--in_dir",
-        required=True,
-        help="Input directory (e.g., sc2/incoming/desh)",
-    )
-    parser_select_desh.add_argument(
-        "-o",
-        "--out_file",
-        required=True,
-        help=" an ouput (combined fasta file)(e.g., combined.fasta)",
-    )
-
-    parser_select_desh.add_argument(
-        "-s",
-        "--start_date",
-        type=lambda s: datetime.datetime.strptime(s, "%Y-%m-%d"),
-        default=yesterday,
-        help="start date in the format YYYY-MM-DD. [default:{}] (yesterday)".format(
-            yesterday
-        ),
-    )
-    parser_select_desh.add_argument(
-        "-e",
-        "--look_back",
-        type=int,
-        default=35,
-        help=" lookback duration [default: 35]",
-    )
-
+   
     parser_select_covsonar = subparsers.add_parser(
         "convert-covSonar",
-        parents=[common],
-        help="convert covSonar output (from match command) into Vocal format which can be used in detection.",
+        help="convert covSonar output (from match command) into VOCAL format which can be used in detection.",
     )
     parser_select_covsonar.add_argument(
         "-i",
@@ -356,7 +311,7 @@ if __name__ == "__main__":
         "-a",
         "--annotation",
         required=True,
-        default="table_cov2_mutations_annotation.tsv",
+        default="../data/table_cov2_mutations_annotation.tsv",
         help="Table with information about lineage defining mutation and Variants Of Concern (data/table_cov2_mutations_annotation.tsv)",
     )
 
@@ -367,8 +322,6 @@ if __name__ == "__main__":
     t1 = ti.default_timer()
     if args.tool == "convert-covSonar":
         main_covSonar(args)
-    elif args.tool == "select-desh":
-        main(args)
     else:
         sys.exit("please input a correct command")
     t2 = ti.default_timer()
