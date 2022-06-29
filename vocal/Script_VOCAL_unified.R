@@ -14,6 +14,10 @@ suppressPackageStartupMessages(library(tidyverse, warn.conflicts = FALSE))
 suppressPackageStartupMessages(library(lubridate, warn.conflicts = FALSE))
 suppressPackageStartupMessages(library(glue, warn.conflicts = FALSE))
 suppressPackageStartupMessages(library(igraph, warn.conflicts = FALSE))
+suppressPackageStartupMessages(library(logger, warn.conflicts = FALSE))
+
+# Suppress summarise() info
+options(dplyr.summarise.inform = FALSE)
 
 # options(error = traceback)
 
@@ -30,18 +34,20 @@ option_list <- list(
   make_option(
     c("-v", "--anno_vocal_path"),
     default = file.path(getwd(), "data"),
-    help = "directory path where Vocal database is stored (files concerned: ECDC_assigned_variants.csv and escape_data_bloom_lab.csv and filiation_information)"
+    help = "directory path where Vocal database is stored (files concerned: ECDC_assigned_variants.csv and escape_data_bloom_lab.csv and filiation_information) [default %default]"
   ),
   make_option(c("-o", "--outdir"), default = "results/",
               help = "Output directory [default %default]"),
   make_option(c("--id_column"), default = "ID",
-              help = "Column name for the sample ID (this argument will be used if file_annotations is used)"),
+              help = "Column name for the sample ID (this argument will be used if file_annotations is used) [default %default]"),
   make_option(c("--lineage_column"), default = "LINEAGE",
-              help = "Column name reporting LINEAGE information in the metadata (this argument will be used if file_annotations is used)"),
+              help = "Column name reporting LINEAGE information in the metadata (this argument will be used if file_annotations is used) [default %default]"),
   make_option(c("--date_column"), default = "SAMPLING_DATE",
-              help = "Column name reporting sampling date information (this argument will be used if file_annotations is used)"),
+              help = "Column name reporting sampling date information (this argument will be used if file_annotations is used) [default %default]"),
   make_option(c("--geoloc_column"), default = "PRIMARY_DIAGNOSTIC_LAB_PLZ",
-              help = "Column name for geolocation (this argument will be used if file_annotations is used)")
+              help = "Column name for geolocation (this argument will be used if file_annotations is used) [default %default]"),
+  make_option(c("--verbose"), default = FALSE, action = "store_true",
+              help = "Write more output to the console")
 )
 
 parser = OptionParser(option_list = option_list)
@@ -64,6 +70,13 @@ args_tester <- function(args){
 }
 
 args = args_tester(args)
+
+# Setup logging
+if (args$verbose) {
+  log_threshold(TRACE)
+} else {
+  log_threshold(WARN)
+}
 
 theme_set(theme_minimal())
 
@@ -158,7 +171,7 @@ antibody_escape_score_summary = suppressMessages( antibody_escape_score_raw %>%
 ECDC_variants = read_csv(file_ECDCvariants_csv, , col_types = cols()) #,  show_col_types = FALSE)
 variants_filiation = read_tsv(file_variant_filiations_csv, , col_types = cols())
 
-VariantsOfConcern = ECDC_variants %>% filter(Status == "VOC") %>%
+VariantsOfConcern = suppressMessages(ECDC_variants %>% filter(Status == "VOC") %>%
   inner_join(variants_filiation, by = c(`Pango lineage` = "lineage")) %>%
   separate_rows(sublineage, sep = ",") %>%
   pivot_longer(
@@ -168,8 +181,9 @@ VariantsOfConcern = ECDC_variants %>% filter(Status == "VOC") %>%
   ) %>%
   filter(absolute.lineage %>% str_starts("[A-Z]")) %>% 
   pull(absolute.lineage) %>% unique()
+)
 
-VariantsOfInterest = ECDC_variants %>% filter(Status == "VOI") %>%
+VariantsOfInterest = suppressMessages(ECDC_variants %>% filter(Status == "VOI") %>%
   inner_join(variants_filiation, by = c(`Pango lineage` = "lineage")) %>%
   separate_rows(sublineage, sep = ",") %>%
   pivot_longer(
@@ -179,9 +193,7 @@ VariantsOfInterest = ECDC_variants %>% filter(Status == "VOI") %>%
   ) %>%
   filter(absolute.lineage %>% str_starts("[A-Z]")) %>% 
   pull(absolute.lineage) %>% unique()
-
-#print(VariantsOfConcern)
-#print(VariantsOfInterest)
+)
 
 ############ Reading up the results ################
 
@@ -212,7 +224,7 @@ if (file.exists(file_annotations)) {
   }
   
   # metadata = rename(metadata, "lineage" = LINEAGE_COL)
-  all_reports = metadata %>%
+  all_reports = suppressMessages(metadata %>%
     mutate(across(any_of(DATE_COL),  ~ date(.x))) %>%
     filter(across(any_of(DATE_COL), ~ . >= date(earliestdate))) %>%
     mutate(
@@ -224,6 +236,7 @@ if (file.exists(file_annotations)) {
         TRUE ~ OTHER_KEY
       )
     )
+  )
   
 } else{
   warning("No meta information is given \n")
@@ -365,7 +378,7 @@ if (FALSE) {
     select(all_of(ID_COL, LINEAGE_COL)) %>%
     rename(LINEAGE.LATEST, LINEAGE_COL)
   
-  var_pheno_score_summary = inner_join(var_pheno_score_summary,desh_latest)
+  var_pheno_score_summary = suppressMessages(inner_join(var_pheno_score_summary, desh_latest))
 }
 #write_tsv(var_pheno_score_summary, "./variants_desh_with_score.tsv")
 #write_tsv(var_pheno_score_summary_with_latest_lineage, "./variants_desh_with_score_with_latest_lineage.tsv")
@@ -470,9 +483,8 @@ compute_alert_levels_v1 <- function(pheno_table_wide) {
 var_pheno_summary_wide_with_alert = compute_alert_levels_v1(var_pheno_summary_wide)
 
 prediction_overview = var_pheno_summary_wide_with_alert %>% group_by(alert_level) %>% count()
-message("\n Prediction Results")
-print(prediction_overview)
-message("\n")
+log_info("Prediction Results:")
+log_info(prediction_overview)
 
 write.table(
   prediction_overview,
@@ -481,8 +493,6 @@ write.table(
 )
 
 ### Some simple functions for clustering
-###
-
 hamming <- function(X) {
   D <- (1 - X) %*% t(X)
   D + t(D)
@@ -512,7 +522,7 @@ get_sequence_clusters = function(tab, max_dist = Hamming_dist_clustering) {
 ### We create a nested dataframe for each alert level
 ###
 
-mutations_per_alert_level = var_pheno_summary_wide_with_alert  %>%
+mutations_per_alert_level = suppressMessages(var_pheno_summary_wide_with_alert  %>%
   ungroup() %>%
   filter(alert_level != "grey") %>%
   select(ID, alert_level) %>%
@@ -531,6 +541,7 @@ mutations_per_alert_level = var_pheno_summary_wide_with_alert  %>%
       values_fill = 0
     )
   ))
+  )
 
 alert_level_groups_with_clusters = mutations_per_alert_level %>%
   mutate(clusters = map(data, get_sequence_clusters))
@@ -547,8 +558,7 @@ vocal_list_samples_with_alert = suppressMessages(var_pheno_summary_wide_with_ale
           desc(DATE_COL))
   )
 ########### Output goes Here ###########
-message('\n Write Results at:', out_path)
-message("\n")
+log_debug("Write Results at: {out_path}")
 
 vocal_common_mutations_in_clusters = suppressMessages( vocal_list_samples_with_alert %>%
   filter(alert_level != "grey") %>%
@@ -679,4 +689,4 @@ error = function(e) {
   )
   stop("error at vocal-samples-out", as.character(e))
 })
-message("** Success **")
+log_trace("** Success **")
