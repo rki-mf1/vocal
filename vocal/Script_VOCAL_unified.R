@@ -10,10 +10,16 @@
 ##
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(digest))
-suppressPackageStartupMessages(library(tidyverse, warn.conflicts = FALSE))
-suppressPackageStartupMessages(library(lubridate, warn.conflicts = FALSE))
-suppressPackageStartupMessages(library(glue, warn.conflicts = FALSE))
-suppressPackageStartupMessages(library(igraph, warn.conflicts = FALSE))
+suppressPackageStartupMessages(library(forcats))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(stringr)) 
+suppressPackageStartupMessages(library(readr))  
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(purrr))
+suppressPackageStartupMessages(library(lubridate))
+suppressPackageStartupMessages(library(glue))
+suppressPackageStartupMessages(library(igraph))
 suppressPackageStartupMessages(library(logger, warn.conflicts = FALSE))
 
 # Suppress summarise() info
@@ -482,9 +488,11 @@ compute_alert_levels_v1 <- function(pheno_table_wide) {
 
 var_pheno_summary_wide_with_alert = compute_alert_levels_v1(var_pheno_summary_wide)
 
-prediction_overview = var_pheno_summary_wide_with_alert %>% group_by(alert_level) %>% count()
+prediction_overview = suppressMessages(var_pheno_summary_wide_with_alert %>% group_by(alert_level) %>% count())
 log_info("Prediction Results:")
-log_info(prediction_overview)
+if (log_threshold() >= TRACE) {
+print(prediction_overview)
+}
 
 write.table(
   prediction_overview,
@@ -689,4 +697,4 @@ error = function(e) {
   )
   stop("error at vocal-samples-out", as.character(e))
 })
-log_trace("** Success **")
+log_info("** Success **")

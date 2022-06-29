@@ -11,12 +11,12 @@ import requests
 import shutil
 import re
 from utils.utility import ROOT_DIR, update_version, get_current_date
-
+import numpy as np
 
 # URL
 dict_annotation_db = {
     "NetaZuckerman": "https://github.com/NetaZuckerman/covid19/blob/master/mutationsTable.xlsx?raw=true",
-    "RKI-VOC-PCR-Finder": "https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/DESH/Tabelle_VOC-PCR-Finder.xlsx?__blob=publicationFile",
+    "SC2-Variants": "https://raw.githubusercontent.com/3dgiordano/SARS-CoV-2-Variants/main/data/variants.csv",
 }
 
 deletion_df = pd.read_csv(
@@ -168,16 +168,35 @@ def NetaZuckerman(input_NetaZuckerman):
 
     return _df
 
+def match_star_lineage(df,path_lineage):
+    lineage_df = pd.read_csv(path_lineage, sep="\t", header=0)
+    df.rename(columns = {"Pango lineage":'Pango_lineage'}, inplace = True)
+    select_list = df[df["Pango_lineage"].str.contains("\*")]
 
-def write_to_file(df, file_path):
+    for row in select_list.itertuples():
+        _status = row.Status
+        to_search = row.Pango_lineage
+        lst_dict = []
+        _selected_lins = lineage_df[lineage_df["lineage"].str.contains(to_search)]["lineage"].to_list()
+        for x in _selected_lins:
+            lst_dict.append({'Pango_lineage':x, 'Status':_status, "Label":x})
+        df = df.append(lst_dict)
+
+    
+    df = df[~df["Pango_lineage"].str.contains("\*")]
+    df.rename(columns = {"Pango_lineage":'Pango lineage'}, inplace = True)
+    return df
+
+
+def write_to_file(df, file_path, format="\t"):
     # if not os.path.exists(out_dir):
     # Create a new directory because it does not exist
     #    os.makedirs(out_dir)
-    df.to_csv(file_path, sep="\t", index=False)
+    df.to_csv(file_path, sep=format, index=False)
 
 
-def write_download_to_file(content, out_dir, filename):
-    extenion = ".xlsx"
+def write_download_to_file(content, out_dir, filename, extenion):
+    # extenion = ".xlsx"
     # if filename == "":
     #   extenion
 
@@ -191,19 +210,83 @@ def write_download_to_file(content, out_dir, filename):
         f.write(content)
 
 
-def start_download(tmp_dir):
+def start_download(tmp_dir, what_to_download):
+    print("Start Download", what_to_download)
+    if(what_to_download=="NetaZuckerman"):
+        extension =".xlsx"
+    elif what_to_download=="SC2-Variants":
+        extension =".csv"
+    else:
+        extension =""
+
     for key, url in dict_annotation_db.items():
-        print(key)
-        r = requests.get(url)
-        if r.status_code == 200:
-            filename = key
-            write_download_to_file(r.content, tmp_dir, filename)
-        else:
-            print("Can not download, status code is: " + str(r.status_code))
-            raise requests.exceptions.HTTPError
+        if(what_to_download == key):
+            r = requests.get(url)
+            if r.status_code == 200:
+                filename = key
+                write_download_to_file(r.content, tmp_dir, filename, extension)
+            else:
+                print("Can not download, status code is: " + str(r.status_code))
+                raise requests.exceptions.HTTPError
+    return os.path.join(tmp_dir, filename + extension)
 
+def main_lineage_status(args, key):
+    _online = args.online
+    _our_annotation_path = args.input_annotation_file
+    tmp_dir = args.tmp_directory
+    output = args.out_file
 
-def main(args):
+    # if online
+    if _online:
+        _SC2_variant_path = start_download(tmp_dir, key)
+    else:
+        _SC2_variant_path = args.lineage_status_table
+    sc2_anno_df = pd.read_csv(_SC2_variant_path, header=0)
+    # Read our annotation file
+    if os.path.isfile(_our_annotation_path):
+        print("Read our annotation file")
+        our_anno_df = pd.read_csv(_our_annotation_path, header=0)
+        # print(our_anno_df)
+    else:
+        print("Not Found:", _our_annotation_path, ", we create new one")
+        our_anno_df = pd.DataFrame(
+            columns=["Label", "Status", "EcdcLabel", "Date added", "Comment", "definition_flexible",
+                    "mutation", "label", "Pango lineage"]
+
+        )
+
+    # convert the other status into VOCAL format
+    # WHO/CDC/ECDC/PHE Variants of Concern (VOC) -VOC
+    # WHO/CDC/ECDC Variants of Interest (VOI) - VOI
+    # WHO Alerts for Further Monitoring (AFM) - Monitoring
+    # CDC Variants Being Monitored (VBM) - Monitoring
+    # ECDC Variants Under Monitoring (VUM) - Monitoring
+    # PHE Variants Under Investigation (VUI) - Monitoring
+    sc2_anno_df["type"].replace([np.nan,"FMV"], "De-escalated", inplace=True)
+    sc2_anno_df["type"].replace(["AFM","VBM","VUM","VUI"], "Monitoring", inplace=True)
+    # change column names
+
+    sc2_anno_df.rename(columns={'pango': "Pango lineage", 'type': 'Status'}, inplace=True)
+    sc2_anno_df.drop(columns=['label', 'interest'], inplace=True)
+    sc2_anno_df["Label"] =  sc2_anno_df["Pango lineage"]
+    # Forloop update
+    df = pd.concat([our_anno_df, sc2_anno_df])
+    df.drop_duplicates(['Label'], keep="last", inplace=True)
+
+    # Fix lineage
+    if args.lineage_list:
+        df = match_star_lineage(df, args.lineage_list)
+    else:
+        pass
+
+    print("Write Result")
+    write_to_file(df, output, ",")
+    version_file = os.path.join(ROOT_DIR, "data/.version")
+    update_version(
+            "ECDC assigned variants", get_current_date(), version_file
+        )
+
+def main_mutation(args, key):
     _online = args.online
     _our_annotation_path = args.input_annotation_file
     tmp_dir = args.tmp_directory
@@ -214,13 +297,9 @@ def main(args):
 
     # if online
     if _online:
-        start_download(tmp_dir)
-        _NetaZuckerman_path = os.path.join(tmp_dir, "NetaZuckerman")
-        #_RKI_VOC_PCR_Finder_path = os.path.join(tmp_dir, "RKI-VOC-PCR-Finder")
-        pass
+        _NetaZuckerman_path = start_download(tmp_dir, key)
     else:
         _NetaZuckerman_path = args.netazuckerman
-        #_RKI_VOC_PCR_Finder_path = args.tabelle_VOC_PCR_Finder
 
     # Read our annotation file
     if os.path.isfile(_our_annotation_path):
@@ -278,249 +357,96 @@ def main(args):
     final_our_anno_df.nucleotide = final_our_anno_df.nucleotide.fillna("?")
     write_to_file(final_our_anno_df, output)
 
-    # clean tmp directory
-    try:
-        shutil.rmtree(tmp_dir)
-    except OSError as e:
-        print("Error: %s - %s." % (e.filename, e.strerror))
-
 
 if __name__ == "__main__":
     parser = ap.ArgumentParser(
-        description=" This tool used for update lineage-defining mutations of the Vocal's knowledge base only",
+        description=" This tool is used to update DBs of the VOCAL",
+        epilog="please visit https://github.com/rki-mf1/sc2-vocal/wiki for the full detail",
     )
-    parser.add_argument(
-        "-tmp",
-        "--tmp_directory",
-        default="../sc2-vocal.tmp/",
-        help="A directory used to hold temporary files, and the directory will automatically cleaned up upon exiting [default: ../sc2-vocal.tmp/ ]",
-    )
-    parser.add_argument(
-        "-i",
-        "--input_annotation_file",
-        required=False,
-        help="If original annotation file is provided (table_cov2_mutations_annotation.tsv, tsv format), it will update the given annotation file, otherwise it will create a new one",
-        default="../data/table_cov2_mutations_annotation.tsv",
-    )
-    parser.add_argument(
-        "-a",
-        "--online",
-        help="Download from annotation sources instead using a given path in command line (always get a latest data from source)",
-        action="store_true",
-    )
-    parser.add_argument(
-        "-n",
-        "--netazuckerman",
-        required=False,
-        help="please visit https://github.com/NetaZuckerman/covid19/blob/master/mutationsTable.xlsx (NetaZuckerman_mutationsTable.xlsx)",
-        default="../data/table_cov2_mutations_annotation.csv",
-    )
+    subparsers = parser.add_subparsers(help='sc2-mutation, sc2-lineage-status')
+    subparsers.dest = 'tool'
+    subparsers.required = True
 
-
-    parser.add_argument(
+    general_parser = ap.ArgumentParser(add_help=False)
+    general_parser.add_argument(
         "-o",
         "--out_file",
         required=True,
-        help="Ouput in tsv format",
-        default="../data/table_cov2_mutations_annotation.tsv",
+        help="Output name"
+    )
+    general_parser.add_argument(
+        "-tmp",
+        "--tmp_directory",
+        default=".tmp.vocal",
+        help="A directory used to hold temporary files, and the directory will automatically cleaned up upon exiting [default: ../sc2-vocal.tmp/ ]",
+    )
+    general_parser.add_argument(
+        "-i",
+        "--input_annotation_file",
+        default="",
+        required=False,
+        help="If original annotation file is provided (e.g., table_cov2_mutations_annotation.tsv), it will update the given annotation file otherwise it will create a new one",
+    )
+    general_parser.add_argument(
+        "-a",
+        "--online",
+        help="Download from annotation sources (always get a latest data from source)",
+        action="store_true",
     )
 
+
+    parser_sc2_mutation = subparsers.add_parser('sc2-mutation', parents=[general_parser], help='update defined mutation.')
+    parser_sc2_mutation.add_argument(
+        "-n",
+        "--mutation-table",
+        required=False,
+        help="please visit https://github.com/NetaZuckerman/covid19/blob/master/mutationsTable.xlsx (NetaZuckerman_mutationsTable.xlsx)",
+        default="mutationsTable.xlsx",
+    )
+
+
+
+    parser_sc2_lineage_status = subparsers.add_parser('sc2-lineage-status', parents=[general_parser], help='update lineage status.')
+    parser_sc2_lineage_status.add_argument(
+        "-l",
+        "--lineage-status-table",
+        required=False,
+        help="please visit https://github.com/3dgiordano/SARS-CoV-2-Variants/blob/main/data/variants.csv (variants.csv)",
+        default="variants.csv",
+    )
+    parser_sc2_lineage_status.add_argument(
+        "-L",
+        "--lineage_list",
+        required=False,
+        help="please find lineage.all.tsv in data directory",
+    )
     if len(sys.argv) == 1:
         parser.print_help()
         print('Example of usage:')
-        print('python update.vocalDB.py -i ../data/table_cov2_mutations_annotation.tsv --online --out_file ../data/table_cov2_mutations_annotation.tsv \n')
-        print('python update.vocalDB.py -i data/table_cov2_mutations_annotation.tsv -n ../vocal-test-annotation_DB/NetaZuckerman_mutationsTable.xlsx  --out_file data/table_cov2_mutations_annotation.1.tsv \n')
+        print('python vocal/update.vocalDB.py sc2-mutation -i data/table_cov2_mutations_annotation.tsv --online --out_file data/table_cov2_mutations_annotation.new.tsv \n')
+        print('python vocal/update.vocalDB.py sc2-mutation -i data/table_cov2_mutations_annotation.tsv -n data/NetaZuckerman_mutationsTable.xlsx  --out_file data/table_cov2_mutations_annotation.new.tsv \n')
+        print('python vocal/update.vocalDB.py sc2-lineage-status --online -o data/ECDC_assigned_variants.new.csv -i data/ECDC_assigned_variants.csv -L data/lineage.all.tsv')
         print('python update.vocalDB.py -h')
         sys.exit()
     args = parser.parse_args()
+
+    tmp_dir = args.tmp_directory
+    if not os.path.exists(tmp_dir):
+        os.makedirs(tmp_dir)
+
+
     # print(args)
     t1 = ti.default_timer()
-    main(args)
+    if args.tool =="sc2-mutation":
+        main_mutation(args, "NetaZuckerman")
+    elif  args.tool =="sc2-lineage-status":
+        main_lineage_status(args, "SC2-Variants")
+
     t2 = ti.default_timer()
+    # clean tmp directory
+    try:
+       shutil.rmtree(tmp_dir)
+    except OSError as e:
+        print("Error: %s - %s." % (e.filename, e.strerror))
+
     print("Processing time: {} seconds".format(round(t2 - t1), 2))
-
-####### old method 
-#    parser.add_argument(
-#        "-t",
-#        "--tabelle_VOC_PCR_Finder",
-#        required=False,
-#        help=" please visit https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/DESH/Tabelle_VOC-PCR-Finder.xlsx?__blob=publicationFile (Tabelle_VOC-PCR-Finder.xlsx)",
-#        default="../data/table_cov2_mutations_annotation.csv",
-#    )
-def NetaZuckerman_old(input_NetaZuckerman):
-    NetaZuckerman_dfs = pd.read_excel(
-        input_NetaZuckerman, sheet_name=None, converters={"Position": int}
-    )
-    all_sheets = []
-    # construct one big dataframe from multiple sheets
-    for name, sheet in NetaZuckerman_dfs.items():
-        sheet["ID"] = name
-        all_sheets.append(sheet)
-    NetaZuckerman_dfs_full_table = pd.concat(all_sheets)
-    NetaZuckerman_dfs_full_table.reset_index(inplace=True, drop=True)
-    NetaZuckerman_dfs_full_table = NetaZuckerman_dfs_full_table.rename(
-        columns={"protein": "gene"}
-    )
-    NetaZuckerman_dfs_full_table = NetaZuckerman_dfs_full_table.drop_duplicates(
-        subset=["gene", "Mutation type", "varname", "ID"], keep="first"
-    ).reset_index(drop=True)
-    # NetaZuckerman_dfs_full_table[NetaZuckerman_dfs_full_table['Mutation type'].notna()]
-    # print(NetaZuckerman_dfs_full_table)
-    listOfMutation = [
-        "SNP",
-        "deletion",
-        "SNP_silent",
-        "extragenic",
-        "deletion_frameshift",
-        "SNP_stop",
-    ]
-    for i, row in NetaZuckerman_dfs_full_table.iterrows():  # fix format
-
-        if (
-            row["Mutation type"] == "deletion"
-            or row["Mutation type"] == "deletion_frameshift"
-        ):
-            linage = row["ID"].strip().replace("-", " ").split(" ")[0]
-            if row["nuc sub"] == "" or pd.isnull(
-                row["nuc sub"]
-            ):  # temp solution for now
-                if (
-                    row["ID"] == "AY.121- Mediator (Delta D)"
-                    or row["ID"] == "AY.121 (Delta D based)"
-                ):
-                    if row["gene"] == "S":
-                        new_reps = "del:22029:6"
-                    elif row["gene"] == "ORF8":
-                        new_reps = "del:28248:6"
-
-                    ## fix AA deletion format....
-                    vocal_format = deletion_fixAAformat(
-                        new_reps, row["variant"], linage
-                    )
-                    if vocal_format != False:
-                        NetaZuckerman_dfs_full_table.at[i, "variant"] = vocal_format
-
-                    NetaZuckerman_dfs_full_table.at[i, "nuc sub"] = new_reps
-
-                else:
-                    print(row)
-                    print("cannot fix this missing nuc sub at > ", row["ID"])
-            else:
-                # print(row['ID'], row["Position"], row["nuc sub"])
-                new_reps = (
-                    "del:"
-                    + str(row["Position"])
-                    + ":"
-                    + str(sum(c.isalpha() for c in row["nuc sub"]))
-                )
-                # print(new_reps, " ",row["ID"] )
-                ## fix AA deletion format....
-                vocal_format = deletion_fixAAformat(new_reps, row["variant"], linage)
-                if vocal_format != False:
-                    NetaZuckerman_dfs_full_table.at[i, "variant"] = vocal_format
-
-                NetaZuckerman_dfs_full_table.at[i, "nuc sub"] = new_reps
-
-        elif "SNP" in row["Mutation type"]:  # if SNP
-            if row["nuc sub"] == "" or pd.isnull(row["nuc sub"]):
-                new_reps = row["Reference"] + str(row["Position"]) + row["Mutation"]
-                # print(new_reps, " ",row["ID"] )
-                NetaZuckerman_dfs_full_table.at[i, "nuc sub"] = new_reps
-        elif row["Mutation type"] not in listOfMutation:
-            print(row["Mutation type"])
-
-    NetaZuckerman_dfs_full_table["type"] = "LineageDefiningMutation"
-    NetaZuckerman_dfs_full_table.rename(
-        columns={"variant": "amino acid", "nuc sub": "nucleotide"}, inplace=True
-    )
-    NetaZuckerman_dfs_full_table = NetaZuckerman_dfs_full_table[
-        ["gene", "amino acid", "nucleotide", "ID", "type"]
-    ]
-    # remove any other except 'S' gene
-    NetaZuckerman_dfs_full_table = NetaZuckerman_dfs_full_table[
-        NetaZuckerman_dfs_full_table["gene"] == "S"
-    ]
-    NetaZuckerman_dfs_full_table["comment"] = ""
-
-    # clean duplicate again, keep the first one
-    NetaZuckerman_dfs_full_table = NetaZuckerman_dfs_full_table.drop_duplicates(
-        subset=["gene", "amino acid", "nucleotide", "ID"], keep="first"
-    ).reset_index(drop=True)
-
-    # Clean ID tag
-    # we have seperate PDI and non-PDI lineage into two dataframes then, we process each one of them individually
-    # For other lineage except PDI*
-    _df_1 = NetaZuckerman_dfs_full_table.loc[
-        ~NetaZuckerman_dfs_full_table["ID"].str.contains("PDI*", regex=True)
-    ]
-    _df_1 = _df_1.reset_index(drop=True)
-    _df_1["ID"] = _df_1["ID"].str.strip()  # remove white space
-    _df_1["ID"] = _df_1["ID"].str.replace("-", " ")
-    _df_1["ID"] = _df_1["ID"].str.split(" ").str[0]
-    # For PDI <---- we have a little problem, we dont know much about them
-    _df_PDI = NetaZuckerman_dfs_full_table.loc[
-        NetaZuckerman_dfs_full_table["ID"].str.contains("PDI*", regex=True)
-    ]
-    _df_PDI = _df_PDI.reset_index(drop=True)
-    final_NetaZuckerman_dfs_full_table = _df_1.append(
-        _df_PDI, sort=False, ignore_index=True
-    )
-    return final_NetaZuckerman_dfs_full_table
-
-
-def RKI_VOC_FINDER(input_RKI_VOC_PCR_Finder):
-    RKI_VOC_PCR_Finder_dfs = pd.read_excel(
-        input_RKI_VOC_PCR_Finder, sheet_name="VOC PCR Finder", index_col=0
-    )
-    RKI_VOC_PCR_Finder_dfs = RKI_VOC_PCR_Finder_dfs.dropna(axis=1, how="all")
-    # drop last column
-    RKI_VOC_PCR_Finder_dfs.drop(
-        columns=RKI_VOC_PCR_Finder_dfs.columns[-1], axis=1, inplace=True
-    )
-
-    # replace '-' with Zero
-    RKI_VOC_PCR_Finder_dfs = RKI_VOC_PCR_Finder_dfs.replace("-", 0)
-
-    RKI_VOC_PCR_Finder_dfs.loc[
-        :,
-        (
-            RKI_VOC_PCR_Finder_dfs.iloc[
-                1:,
-            ]
-            != 0
-        ).any(axis=0),
-    ]
-    new_RKI_VOC_PCR_Finder_dfs = pd.DataFrame(
-        columns=["gene", "amino acid", "nucleotide", "type", "ID", "comment"]
-    )
-
-    for column in RKI_VOC_PCR_Finder_dfs:
-        series_row = RKI_VOC_PCR_Finder_dfs[column]
-        # main_lineage = "None"
-        for index, value in series_row.items():
-            # print(f"Index : {index}, Value : {value}")
-            if index == "Main lineage":
-                continue
-            elif index == "Number of sequences detected":
-                continue
-            else:  # for all amino acid mutation
-                if value == 0:
-                    continue  # skip for zero count
-                else:
-                    new_RKI_VOC_PCR_Finder_dfs = new_RKI_VOC_PCR_Finder_dfs.append(
-                        {
-                            "amino acid": index,
-                            "gene": "?",
-                            "nucleotide": "?",
-                            "ID": column,
-                            "type": "LineageDefiningMutation",
-                        },
-                        ignore_index=True,
-                    )
-    new_RKI_VOC_PCR_Finder_dfs["ID"] = (
-        new_RKI_VOC_PCR_Finder_dfs["ID"].str.split(" ").str[1]
-    )
-    new_RKI_VOC_PCR_Finder_dfs["ID"] = new_RKI_VOC_PCR_Finder_dfs[
-        "ID"
-    ].str.strip()  # remove white space
-    return new_RKI_VOC_PCR_Finder_dfs
