@@ -1,8 +1,0 @@
-Oops something went wrong,
-
-There was an error in Vocal, no ouputs were generated.
-
-Please investigate this problem before next analysis comes.
-
-Best regards,
-Vocal Bot

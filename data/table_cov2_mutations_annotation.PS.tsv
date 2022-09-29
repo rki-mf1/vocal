@@ -97,56 +97,6 @@ S	N501T	?	LineageDefiningMutation	A.28
 S	H655Y	?	LineageDefiningMutation	A.28	
 S	L452R	?	LineageDefiningMutation	B.1.1.1.36	
 S	D614G	?	LineageDefiningMutation	B.1.1.1.36	
-S	E406W	?	MutationOfConcern	PutativeAntibodyEscape	therapeutic AB (REGN10933,REGN10987)
-S	K417N	G22813T/G22813C	MutationOfConcern	PutativeAntibodyEscape	therapeutic AB (LY-CoV 016), Moderna vaccine (mRNA-1273) elicited AB-response
-S	N439K	?	MutationOfConcern	PutativeAntibodyEscape	therapeutic AB (RREGN10987)
-S	N440D	?	MutationOfConcern	PutativeAntibodyEscape	persistent infection
-S	K444Q	?	MutationOfConcern	PutativeAntibodyEscape	therapeutic AB (REGN10987)
-S	K444-G446	?	MutationOfConcern	PutativeAntibodyEscape	therapeutic AB (REGN10987) contact region, serum derived AB
-S	L452R	?	MutationOfConcern	PutativeAntibodyEscape	serum antibodies
-S	N460T	?	MutationOfConcern	PutativeAntibodyEscape	therapeutic AB (LY-CoV 016)
-S	A475V	?	MutationOfConcern	PutativeAntibodyEscape	therapeutic AB (LY-CoV 016)
-S	V483A	?	MutationOfConcern	PutativeAntibodyEscape	serum RBD binding AB
-S	E484K	?	MutationOfConcern	PutativeAntibodyEscape	serum RBD binding AB; Moderna (mRNA-1273) elicited vaccine response
-S	E484Q	?	MutationOfConcern	PutativeAntibodyEscape	serum RBD binding AB; Moderna (mRNA-1273) elicited vaccine response
-S	E484P	?	MutationOfConcern	PutativeAntibodyEscape	serum RBD binding AB; Moderna (mRNA-1273) elicited vaccine response
-S	F486K	?	MutationOfConcern	PutativeAntibodyEscape	therapeutic AB (REGN10933)
-S	F486I	?	MutationOfConcern	PutativeAntibodyEscape	persistent Infection
-S	Y489H	?	MutationOfConcern	PutativeAntibodyEscape	persistent infection
-S	F490L	?	MutationOfConcern	PutativeAntibodyEscape	monoclonal antibody, serum derived
-S	Q493K	?	MutationOfConcern	PutativeAntibodyEscape	persistent Infection,therapeutic AB (REGN10933)
-S	N501Y	?	MutationOfConcern	PutativeAntibodyEscape	vaccine induced and serum RBD AB
-S	14-20	21602-21622	MutationOfConcern	PutativeAntibodyEscape	B-cell derived AB
-S	140-158	21980-22036	MutationOfConcern	PutativeAntibodyEscape	B-cell derived AB
-S	245-264	22295-22354	MutationOfConcern	PutativeAntibodyEscape	B-cell derived AB
-S	S13I	?	MutationOfConcern	PutativePhenotype	NTD epitope; detected in the californian variant B.1.429  [11]
-S	L18F	C21614T	MutationOfConcern	PutativePhenotype	resistance to NTD binding antibodies [2]
-S	T20N	C21621A	MutationOfConcern	PutativePhenotype	resistance to NTD binding antibodies [2]
-S	P26S	C21638T	MutationOfConcern	PutativePhenotype	resistance to NTD binding antibodies [2]
-S	HV69-70del	del:21765:6	MutationOfConcern	PutativePhenotype	Recurrent deletion region 1 (RDR1) [13]; S-target primer dropout
-S	D80A	C21801T	MutationOfConcern	PutativePhenotype	resistance to NTD binding antibodies [2]
-S	D138Y	G21974T	MutationOfConcern	PutativePhenotype	resistance to NTD binding antibodies [2]
-S	Y144-144del	del:21992:3	MutationOfConcern	PutativePhenotype	Recurrent deletion region 2 (RDR2) [13] !!Mutation associated with  NTD binding AB escape!! [2,10,13]
-S	W152C	?	MutationOfConcern	PutativePhenotype	NTD epitope; detected in the californian variant B.1.429  [11]
-S	R190S	G22132C/G22132T	MutationOfConcern	PutativePhenotype	resistance to NTD binding antibodies [2]
-S	I210del	del:22189:3	MutationOfConcern	PutativePhenotype	Recurrent deletion region 3 (RDR3) [13]
-S	LAL242-244del	del:22286:9	MutationOfConcern	PutativePhenotype	Recurrent deletion region 4 (RDR4) [13]; resistance to NTD binding antibodies[10]
-S	R246I	G22299T	MutationOfConcern	PutativePhenotype	resistance to NTD binding antibodies[2,10]
-S	K417T	A22812C	MutationOfConcern	PutativePhenotype	resistance to RBD binding antibodies[1,9,10]
-S	K417N	G22813C/G22813T	MutationOfConcern	PutativePhenotype	resistance to RBD binding antibodies[1,9,10]
-S	L452R	?	MutationOfConcern	PutativePhenotype	detected in the Californian variant B.1.429 [11]; probably related to increased transmissibility; in very close proximity to the mink (cluster 5) variant F453Y; possible resistence to some monoclonal antibodies, but not to reconvalescent plasma [12]
-S	A475V	C22986T	MutationOfConcern	PutativePhenotype	vaccine-elicited antibody resistance [8]
-S	S477N	G22992A	MutationOfConcern	PutativePhenotype	Mutation seems to increase ACE2 binding (in vitro) [3], also AB resistance [7]
-S	S477G	A22991G	MutationOfConcern	PutativePhenotype	Mutation seems to increase ACE2 binding (in vitro) [3], also AB resistance [7]
-S	E484K	G23012A	MutationOfConcern	PutativePhenotype	strong resistance to RBD binding AB [4,9,10]
-S	E484Q	G23012C	MutationOfConcern	PutativePhenotype	strong resistance to RBD binding AB [4,9,10]
-S	E484P	G23012C+A23013C	MutationOfConcern	PutativePhenotype	strong resistance to RBD binding AB [4,9,10]
-S	E484K,N501Y	G23012A,A23063T	MutationOfConcern	PutativePhenotype	Combination seems to strongly increase ACE2 binding  (in vitro), resistance to RBD ABs [3,4]
-S	E484K,R683G	G23012A,C23609G	MutationOfConcern	PutativePhenotype	!!Combination seems to cause insusceptibility to to vaccine elicited ABs!! [8]
-S	F486S	T23019C	MutationOfConcern	PutativePhenotype	strong resistance to RBD binding antibodies[7]
-S	Q493K	C23039A	MutationOfConcern	PutativePhenotype	resistance to RBD binding antibodies[1,8]
-S	Q493R	A23040G	MutationOfConcern	PutativePhenotype	resistance to RBD binding antibodies[1,8]
-S	N501Y	A23063T	MutationOfConcern	PutativePhenotype	Mutation seems to increase ACE2 binding (in vitro)[3], ?also partial resistance [8]?
 S	Q321Q	A22525G	LineageDefiningMutation	A.2.5.1	
 S	L452R	T22917G	LineageDefiningMutation	A.2.5.1	
 S	D614G	A23403G	LineageDefiningMutation	A.2.5.1	
@@ -4283,575 +4233,179 @@ S	D796Y	G23948T	LineageDefiningMutation	BA.2.38.1
 S	Q954H	A24424T	LineageDefiningMutation	BA.2.38.1	
 S	N969K	T24469A	LineageDefiningMutation	BA.2.38.1	
 S	D1146D	C25000T	LineageDefiningMutation	BA.2.38.1	
-S	Deletion	T21765-	LineageDefiningMutation	XAK	
-S	G142D	G21987A	LineageDefiningMutation	XAK	
-S	K147E	A22001G	LineageDefiningMutation	XAK	
-S	V213G	T22200G	LineageDefiningMutation	XAK	
-S	G339D	G22578A	LineageDefiningMutation	XAK	
-S	R346K	G22599A	LineageDefiningMutation	XAK	
-S	S371F	C22674T	LineageDefiningMutation	XAK	
-S	S373P	T22679C	LineageDefiningMutation	XAK	
-S	S375F	C22686T	LineageDefiningMutation	XAK	
-S	T376A	A22688G	LineageDefiningMutation	XAK	
-S	D405N	G22775A	LineageDefiningMutation	XAK	
-S	R408S	A22786C	LineageDefiningMutation	XAK	
-S	K417N	G22813T	LineageDefiningMutation	XAK	
-S	N440K	T22882G	LineageDefiningMutation	XAK	
-S	N460K	T22942G	LineageDefiningMutation	XAK	
-S	S477N	G22992A	LineageDefiningMutation	XAK	
-S	T478K	C22995A	LineageDefiningMutation	XAK	
-S	E484A	A23013C	LineageDefiningMutation	XAK	
-S	Q498R	A23055G	LineageDefiningMutation	XAK	
-S	N501Y	A23063T	LineageDefiningMutation	XAK	
-S	Y505H	T23075C	LineageDefiningMutation	XAK	
-S	D614G	A23403G	LineageDefiningMutation	XAK	
-S	H655Y	C23525T	LineageDefiningMutation	XAK	
-S	N679K	T23599G	LineageDefiningMutation	XAK	
-S	P681H	C23604A	LineageDefiningMutation	XAK	
-S	N764K	C23854A	LineageDefiningMutation	XAK	
-S	D796Y	G23948T	LineageDefiningMutation	XAK	
-S	Q954H	A24424T	LineageDefiningMutation	XAK	
-S	N969K	T24469A	LineageDefiningMutation	XAK	
-S	H1101Y	C24863T	LineageDefiningMutation	XAK	
-S	D1146D	C25000T	LineageDefiningMutation	XAK	
-S	T19I	C21618T	LineageDefiningMutation	BF.2	
-S	Deletion	T21633-	LineageDefiningMutation	BF.2	
-S	G142D	G21987A	LineageDefiningMutation	BF.2	
-S	V213G	T22200G	LineageDefiningMutation	BF.2	
-S	G339D	G22578A	LineageDefiningMutation	BF.2	
-S	S371F	C22674T	LineageDefiningMutation	BF.2	
-S	S373P	T22679C	LineageDefiningMutation	BF.2	
-S	S375F	C22686T	LineageDefiningMutation	BF.2	
-S	T376A	A22688G	LineageDefiningMutation	BF.2	
-S	D405N	G22775A	LineageDefiningMutation	BF.2	
-S	R408S	A22786C	LineageDefiningMutation	BF.2	
-S	K417N	G22813T	LineageDefiningMutation	BF.2	
-S	N440K	T22882G	LineageDefiningMutation	BF.2	
-S	L452R	T22917G	LineageDefiningMutation	BF.2	
-S	S477N	G22992A	LineageDefiningMutation	BF.2	
-S	T478K	C22995A	LineageDefiningMutation	BF.2	
-S	E484A	A23013C	LineageDefiningMutation	BF.2	
-S	F486V	T23018G	LineageDefiningMutation	BF.2	
-S	Q498R	A23055G	LineageDefiningMutation	BF.2	
-S	N501Y	A23063T	LineageDefiningMutation	BF.2	
-S	Y505H	T23075C	LineageDefiningMutation	BF.2	
-S	D614G	A23403G	LineageDefiningMutation	BF.2	
-S	H655Y	C23525T	LineageDefiningMutation	BF.2	
-S	N679K	T23599G	LineageDefiningMutation	BF.2	
-S	P681H	C23604A	LineageDefiningMutation	BF.2	
-S	N764K	C23854A	LineageDefiningMutation	BF.2	
-S	D796Y	G23948T	LineageDefiningMutation	BF.2	
-S	Q954H	A24424T	LineageDefiningMutation	BF.2	
-S	N969K	T24469A	LineageDefiningMutation	BF.2	
-S	D1146D	C25000T	LineageDefiningMutation	BF.2	
-S	T19I	C21618T	LineageDefiningMutation	BF.7	
-S	Deletion	T21633-	LineageDefiningMutation	BF.7	
-S	G142D	G21987A	LineageDefiningMutation	BF.7	
-S	V213G	T22200G	LineageDefiningMutation	BF.7	
-S	G339D	G22578A	LineageDefiningMutation	BF.7	
-S	R346T	G22599C	LineageDefiningMutation	BF.7	
-S	S371F	C22674T	LineageDefiningMutation	BF.7	
-S	S373P	T22679C	LineageDefiningMutation	BF.7	
-S	S375F	C22686T	LineageDefiningMutation	BF.7	
-S	T376A	A22688G	LineageDefiningMutation	BF.7	
-S	D405N	G22775A	LineageDefiningMutation	BF.7	
-S	R408S	A22786C	LineageDefiningMutation	BF.7	
-S	K417N	G22813T	LineageDefiningMutation	BF.7	
-S	N440K	T22882G	LineageDefiningMutation	BF.7	
-S	L452R	T22917G	LineageDefiningMutation	BF.7	
-S	S477N	G22992A	LineageDefiningMutation	BF.7	
-S	T478K	C22995A	LineageDefiningMutation	BF.7	
-S	E484A	A23013C	LineageDefiningMutation	BF.7	
-S	F486V	T23018G	LineageDefiningMutation	BF.7	
-S	Q498R	A23055G	LineageDefiningMutation	BF.7	
-S	N501Y	A23063T	LineageDefiningMutation	BF.7	
-S	Y505H	T23075C	LineageDefiningMutation	BF.7	
-S	D614G	A23403G	LineageDefiningMutation	BF.7	
-S	H655Y	C23525T	LineageDefiningMutation	BF.7	
-S	N679K	T23599G	LineageDefiningMutation	BF.7	
-S	P681H	C23604A	LineageDefiningMutation	BF.7	
-S	N764K	C23854A	LineageDefiningMutation	BF.7	
-S	D796Y	G23948T	LineageDefiningMutation	BF.7	
-S	Q954H	A24424T	LineageDefiningMutation	BF.7	
-S	N969K	T24469A	LineageDefiningMutation	BF.7	
-S	D1146D	C25000T	LineageDefiningMutation	BF.7	
-S	T19I	C21618T	LineageDefiningMutation	BA.2.38.2	
-S	Deletion	T21633-	LineageDefiningMutation	BA.2.38.2	
-S	G142D	G21987A	LineageDefiningMutation	BA.2.38.2	
-S	F157S	T22032C	LineageDefiningMutation	BA.2.38.2	
-S	V213G	T22200G	LineageDefiningMutation	BA.2.38.2	
-S	G339D	G22578A	LineageDefiningMutation	BA.2.38.2	
-S	S371F	C22674T	LineageDefiningMutation	BA.2.38.2	
-S	S373P	T22679C	LineageDefiningMutation	BA.2.38.2	
-S	S375F	C22686T	LineageDefiningMutation	BA.2.38.2	
-S	T376A	A22688G	LineageDefiningMutation	BA.2.38.2	
-S	D405N	G22775A	LineageDefiningMutation	BA.2.38.2	
-S	R408S	A22786C	LineageDefiningMutation	BA.2.38.2	
-S	K417T	A22812C	LineageDefiningMutation	BA.2.38.2	
-S	N440K	T22882G	LineageDefiningMutation	BA.2.38.2	
-S	K444N	G22894C	LineageDefiningMutation	BA.2.38.2	
-S	S477N	G22992A	LineageDefiningMutation	BA.2.38.2	
-S	T478K	C22995A	LineageDefiningMutation	BA.2.38.2	
-S	E484A	A23013C	LineageDefiningMutation	BA.2.38.2	
-S	Q493R	A23040G	LineageDefiningMutation	BA.2.38.2	
-S	Q498R	A23055G	LineageDefiningMutation	BA.2.38.2	
-S	N501Y	A23063T	LineageDefiningMutation	BA.2.38.2	
-S	Y505H	T23075C	LineageDefiningMutation	BA.2.38.2	
-S	D614G	A23403G	LineageDefiningMutation	BA.2.38.2	
-S	H655Y	C23525T	LineageDefiningMutation	BA.2.38.2	
-S	N679K	T23599G	LineageDefiningMutation	BA.2.38.2	
-S	P681H	C23604A	LineageDefiningMutation	BA.2.38.2	
-S	N764K	C23854A	LineageDefiningMutation	BA.2.38.2	
-S	D796Y	G23948T	LineageDefiningMutation	BA.2.38.2	
-S	Q954H	A24424T	LineageDefiningMutation	BA.2.38.2	
-S	N969K	T24469A	LineageDefiningMutation	BA.2.38.2	
-S	D1146D	C25000T	LineageDefiningMutation	BA.2.38.2	
-S	T19I	C21618T	LineageDefiningMutation	BA.5.1	
-S	Deletion	T21633-	LineageDefiningMutation	BA.5.1	
-S	G142D	G21987A	LineageDefiningMutation	BA.5.1	
-S	V213G	T22200G	LineageDefiningMutation	BA.5.1	
-S	G339D	G22578A	LineageDefiningMutation	BA.5.1	
-S	S371F	C22674T	LineageDefiningMutation	BA.5.1	
-S	S373P	T22679C	LineageDefiningMutation	BA.5.1	
-S	S375F	C22686T	LineageDefiningMutation	BA.5.1	
-S	T376A	A22688G	LineageDefiningMutation	BA.5.1	
-S	D405N	G22775A	LineageDefiningMutation	BA.5.1	
-S	R408S	A22786C	LineageDefiningMutation	BA.5.1	
-S	K417N	G22813T	LineageDefiningMutation	BA.5.1	
-S	N440K	T22882G	LineageDefiningMutation	BA.5.1	
-S	L452R	T22917G	LineageDefiningMutation	BA.5.1	
-S	S477N	G22992A	LineageDefiningMutation	BA.5.1	
-S	T478K	C22995A	LineageDefiningMutation	BA.5.1	
-S	E484A	A23013C	LineageDefiningMutation	BA.5.1	
-S	F486V	T23018G	LineageDefiningMutation	BA.5.1	
-S	Q498R	A23055G	LineageDefiningMutation	BA.5.1	
-S	N501Y	A23063T	LineageDefiningMutation	BA.5.1	
-S	Y505H	T23075C	LineageDefiningMutation	BA.5.1	
-S	D614G	A23403G	LineageDefiningMutation	BA.5.1	
-S	H655Y	C23525T	LineageDefiningMutation	BA.5.1	
-S	N679K	T23599G	LineageDefiningMutation	BA.5.1	
-S	P681H	C23604A	LineageDefiningMutation	BA.5.1	
-S	N764K	C23854A	LineageDefiningMutation	BA.5.1	
-S	D796Y	G23948T	LineageDefiningMutation	BA.5.1	
-S	Q954H	A24424T	LineageDefiningMutation	BA.5.1	
-S	N969K	T24469A	LineageDefiningMutation	BA.5.1	
-S	D1146D	C25000T	LineageDefiningMutation	BA.5.1	
-S	T19I	C21618T	LineageDefiningMutation	BA.5.1.5	
-S	Deletion	T21633-	LineageDefiningMutation	BA.5.1.5	
-S	G142D	G21987A	LineageDefiningMutation	BA.5.1.5	
-S	V213G	T22200G	LineageDefiningMutation	BA.5.1.5	
-S	G339D	G22578A	LineageDefiningMutation	BA.5.1.5	
-S	S371F	C22674T	LineageDefiningMutation	BA.5.1.5	
-S	S373P	T22679C	LineageDefiningMutation	BA.5.1.5	
-S	S375F	C22686T	LineageDefiningMutation	BA.5.1.5	
-S	T376A	A22688G	LineageDefiningMutation	BA.5.1.5	
-S	D405N	G22775A	LineageDefiningMutation	BA.5.1.5	
-S	R408S	A22786C	LineageDefiningMutation	BA.5.1.5	
-S	K417N	G22813T	LineageDefiningMutation	BA.5.1.5	
-S	N440K	T22882G	LineageDefiningMutation	BA.5.1.5	
-S	L452R	T22917G	LineageDefiningMutation	BA.5.1.5	
-S	S477N	G22992A	LineageDefiningMutation	BA.5.1.5	
-S	T478K	C22995A	LineageDefiningMutation	BA.5.1.5	
-S	E484A	A23013C	LineageDefiningMutation	BA.5.1.5	
-S	F486V	T23018G	LineageDefiningMutation	BA.5.1.5	
-S	Q498R	A23055G	LineageDefiningMutation	BA.5.1.5	
-S	N501Y	A23063T	LineageDefiningMutation	BA.5.1.5	
-S	Y505H	T23075C	LineageDefiningMutation	BA.5.1.5	
-S	D614G	A23403G	LineageDefiningMutation	BA.5.1.5	
-S	H655Y	C23525T	LineageDefiningMutation	BA.5.1.5	
-S	N679K	T23599G	LineageDefiningMutation	BA.5.1.5	
-S	P681H	C23604A	LineageDefiningMutation	BA.5.1.5	
-S	N764K	C23854A	LineageDefiningMutation	BA.5.1.5	
-S	D796Y	G23948T	LineageDefiningMutation	BA.5.1.5	
-S	Q954H	A24424T	LineageDefiningMutation	BA.5.1.5	
-S	N969K	T24469A	LineageDefiningMutation	BA.5.1.5	
-S	D1146D	C25000T	LineageDefiningMutation	BA.5.1.5	
-S	P1263Q	C25350A	LineageDefiningMutation	BA.5.1.5	
-S	T19I	C21618T	LineageDefiningMutation	BF.11	
-S	Deletion	T21633-	LineageDefiningMutation	BF.11	
-S	G142D	G21987A	LineageDefiningMutation	BF.11	
-S	V213G	T22200G	LineageDefiningMutation	BF.11	
-S	G339D	G22578A	LineageDefiningMutation	BF.11	
-S	R346T	G22599C	LineageDefiningMutation	BF.11	
-S	S371F	C22674T	LineageDefiningMutation	BF.11	
-S	S373P	T22679C	LineageDefiningMutation	BF.11	
-S	S375F	C22686T	LineageDefiningMutation	BF.11	
-S	T376A	A22688G	LineageDefiningMutation	BF.11	
-S	D405N	G22775A	LineageDefiningMutation	BF.11	
-S	R408S	A22786C	LineageDefiningMutation	BF.11	
-S	K417N	G22813T	LineageDefiningMutation	BF.11	
-S	N440K	T22882G	LineageDefiningMutation	BF.11	
-S	L452R	T22917G	LineageDefiningMutation	BF.11	
-S	S477N	G22992A	LineageDefiningMutation	BF.11	
-S	T478K	C22995A	LineageDefiningMutation	BF.11	
-S	E484A	A23013C	LineageDefiningMutation	BF.11	
-S	F486V	T23018G	LineageDefiningMutation	BF.11	
-S	Q498R	A23055G	LineageDefiningMutation	BF.11	
-S	N501Y	A23063T	LineageDefiningMutation	BF.11	
-S	Y505H	T23075C	LineageDefiningMutation	BF.11	
-S	D614G	A23403G	LineageDefiningMutation	BF.11	
-S	H655Y	C23525T	LineageDefiningMutation	BF.11	
-S	N679K	T23599G	LineageDefiningMutation	BF.11	
-S	P681H	C23604A	LineageDefiningMutation	BF.11	
-S	N764K	C23854A	LineageDefiningMutation	BF.11	
-S	D796Y	G23948T	LineageDefiningMutation	BF.11	
-S	Q954H	A24424T	LineageDefiningMutation	BF.11	
-S	N969K	T24469A	LineageDefiningMutation	BF.11	
-S	D1146D	C25000T	LineageDefiningMutation	BF.11	
-S	L452R	T22917G	LineageDefiningMutation	mediator	
-S	F486V	T23018G	LineageDefiningMutation	mediator	
-S	T19I	C21618T	LineageDefiningMutation	BA.2.36	
-S	Deletion	T21633-	LineageDefiningMutation	BA.2.36	
-S	I68T	T21765C	LineageDefiningMutation	BA.2.36	
-S	G142D	G21987A	LineageDefiningMutation	BA.2.36	
-S	V213G	T22200G	LineageDefiningMutation	BA.2.36	
-S	G339D	G22578A	LineageDefiningMutation	BA.2.36	
-S	S371F	C22674T	LineageDefiningMutation	BA.2.36	
-S	S373P	T22679C	LineageDefiningMutation	BA.2.36	
-S	S375F	C22686T	LineageDefiningMutation	BA.2.36	
-S	T376A	A22688G	LineageDefiningMutation	BA.2.36	
-S	D405N	G22775A	LineageDefiningMutation	BA.2.36	
-S	R408S	A22786C	LineageDefiningMutation	BA.2.36	
-S	I410I	C22792T	LineageDefiningMutation	BA.2.36	
-S	K417N	G22813T	LineageDefiningMutation	BA.2.36	
-S	N440K	T22882G	LineageDefiningMutation	BA.2.36	
-S	S477N	G22992A	LineageDefiningMutation	BA.2.36	
-S	T478K	C22995A	LineageDefiningMutation	BA.2.36	
-S	E484A	A23013C	LineageDefiningMutation	BA.2.36	
-S	Q493R	A23040G	LineageDefiningMutation	BA.2.36	
-S	Q498R	A23055G	LineageDefiningMutation	BA.2.36	
-S	N501Y	A23063T	LineageDefiningMutation	BA.2.36	
-S	Y505H	T23075C	LineageDefiningMutation	BA.2.36	
-S	D614G	A23403G	LineageDefiningMutation	BA.2.36	
-S	H655Y	C23525T	LineageDefiningMutation	BA.2.36	
-S	N679K	T23599G	LineageDefiningMutation	BA.2.36	
-S	P681H	C23604A	LineageDefiningMutation	BA.2.36	
-S	N764K	C23854A	LineageDefiningMutation	BA.2.36	
-S	D796Y	G23948T	LineageDefiningMutation	BA.2.36	
-S	Q954H	A24424T	LineageDefiningMutation	BA.2.36	
-S	N969K	T24469A	LineageDefiningMutation	BA.2.36	
-S	D1146D	C25000T	LineageDefiningMutation	BA.2.36	
-S	T376A	A22688G	LineageDefiningMutation	BA.2.82	
-S	Q954H	A24424T	LineageDefiningMutation	BA.2.82	
-S	S371F	C22674T	LineageDefiningMutation	BA.2.82	
-S	S375F	C22686T	LineageDefiningMutation	BA.2.82	
-S	P681H	C23604A	LineageDefiningMutation	BA.2.82	
-S	R346T	G22599C	LineageDefiningMutation	BA.2.82	
-S	D796Y	G23948T	LineageDefiningMutation	BA.2.82	
-S	S373P	T22679C	LineageDefiningMutation	BA.2.82	
-S	N679K	T23599G	LineageDefiningMutation	BA.2.82	
-S	N969K	T24469A	LineageDefiningMutation	BA.2.82	
-S	D614G	A23403G	LineageDefiningMutation	BA.2.82	
-S	H655Y	C23525T	LineageDefiningMutation	BA.2.82	
-S	N764K	C23854A	LineageDefiningMutation	BA.2.82	
-S	D405N	G22775A	LineageDefiningMutation	BA.2.82	
-S	E484A	A23013C	LineageDefiningMutation	BA.2.82	
-S	Q493R	A23040G	LineageDefiningMutation	BA.2.82	
-S	Q498R	A23055G	LineageDefiningMutation	BA.2.82	
-S	N501Y	A23063T	LineageDefiningMutation	BA.2.82	
-S	T478K	C22995A	LineageDefiningMutation	BA.2.82	
-S	S477N	G22992A	LineageDefiningMutation	BA.2.82	
-S	I68T	T21765C	LineageDefiningMutation	BA.2.82	
-S	V213G	T22200G	LineageDefiningMutation	BA.2.82	
-S	Y505H	T23075C	LineageDefiningMutation	BA.2.82	
-S	Deletion	A21634-	LineageDefiningMutation	BA.2.82	
-S	D1146D	C25000T	LineageDefiningMutation	BA.2.82	
-S	G339D	G22578A	LineageDefiningMutation	BA.2.82	
-S	G142D	G21987A	LineageDefiningMutation	BA.2.82	
-S	T19I	C21618T	LineageDefiningMutation	BA.2.82	
-S	K417N	G22813T	LineageDefiningMutation	BA.2.82	
-S	R408S	A22786C	LineageDefiningMutation	BA.2.82	
-S	N440K	T22882G	LineageDefiningMutation	BA.2.82	
-S	T19I	C21618T	LineageDefiningMutation	BA.2.10.4	
-S	Deletion	T21633-	LineageDefiningMutation	BA.2.10.4	
-S	W64R	T21752C	LineageDefiningMutation	BA.2.10.4	
-S	V213G	T22200G	LineageDefiningMutation	BA.2.10.4	
-S	G339D	G22578A	LineageDefiningMutation	BA.2.10.4	
-S	S371F	C22674T	LineageDefiningMutation	BA.2.10.4	
-S	S373P	T22679C	LineageDefiningMutation	BA.2.10.4	
-S	S375F	C22686T	LineageDefiningMutation	BA.2.10.4	
-S	T376A	A22688G	LineageDefiningMutation	BA.2.10.4	
-S	D405N	G22775A	LineageDefiningMutation	BA.2.10.4	
-S	R408S	A22786C	LineageDefiningMutation	BA.2.10.4	
-S	K417N	G22813T	LineageDefiningMutation	BA.2.10.4	
-S	N440K	T22882G	LineageDefiningMutation	BA.2.10.4	
-S	G446S	G22898A	LineageDefiningMutation	BA.2.10.4	
-S	S477N	G22992A	LineageDefiningMutation	BA.2.10.4	
-S	T478K	C22995A	LineageDefiningMutation	BA.2.10.4	
-S	E484A	A23013C	LineageDefiningMutation	BA.2.10.4	
-S	F486P	T23018C	LineageDefiningMutation	BA.2.10.4	
-S	S494P	T23042C	LineageDefiningMutation	BA.2.10.4	
-S	Q498R	A23055G	LineageDefiningMutation	BA.2.10.4	
-S	N501Y	A23063T	LineageDefiningMutation	BA.2.10.4	
-S	Y505H	T23075C	LineageDefiningMutation	BA.2.10.4	
-S	D614G	A23403G	LineageDefiningMutation	BA.2.10.4	
-S	H655Y	C23525T	LineageDefiningMutation	BA.2.10.4	
-S	N679K	T23599G	LineageDefiningMutation	BA.2.10.4	
-S	P681H	C23604A	LineageDefiningMutation	BA.2.10.4	
-S	N764K	C23854A	LineageDefiningMutation	BA.2.10.4	
-S	D796Y	G23948T	LineageDefiningMutation	BA.2.10.4	
-S	Q954H	A24424T	LineageDefiningMutation	BA.2.10.4	
-S	N969K	T24469A	LineageDefiningMutation	BA.2.10.4	
-S	P1143L	C24990T	LineageDefiningMutation	BA.2.10.4	
-S	D1146D	C25000T	LineageDefiningMutation	BA.2.10.4	
-S	T19I	C21618T	LineageDefiningMutation	BA.2.10.1	
-S	Deletion	T21633-	LineageDefiningMutation	BA.2.10.1	
-S	G142D	G21987A	LineageDefiningMutation	BA.2.10.1	
-S	V213G	T22200G	LineageDefiningMutation	BA.2.10.1	
-S	G339D	G22578A	LineageDefiningMutation	BA.2.10.1	
-S	S371F	C22674T	LineageDefiningMutation	BA.2.10.1	
-S	S373P	T22679C	LineageDefiningMutation	BA.2.10.1	
-S	S375F	C22686T	LineageDefiningMutation	BA.2.10.1	
-S	T376A	A22688G	LineageDefiningMutation	BA.2.10.1	
-S	D405N	G22775A	LineageDefiningMutation	BA.2.10.1	
-S	R408S	A22786C	LineageDefiningMutation	BA.2.10.1	
-S	K417N	G22813T	LineageDefiningMutation	BA.2.10.1	
-S	N440K	T22882G	LineageDefiningMutation	BA.2.10.1	
-S	S477N	G22992A	LineageDefiningMutation	BA.2.10.1	
-S	T478K	C22995A	LineageDefiningMutation	BA.2.10.1	
-S	E484A	A23013C	LineageDefiningMutation	BA.2.10.1	
-S	Q493R	A23040G	LineageDefiningMutation	BA.2.10.1	
-S	Q498R	A23055G	LineageDefiningMutation	BA.2.10.1	
-S	N501Y	A23063T	LineageDefiningMutation	BA.2.10.1	
-S	Y505H	T23075C	LineageDefiningMutation	BA.2.10.1	
-S	D614G	A23403G	LineageDefiningMutation	BA.2.10.1	
-S	H655Y	C23525T	LineageDefiningMutation	BA.2.10.1	
-S	N679K	T23599G	LineageDefiningMutation	BA.2.10.1	
-S	P681H	C23604A	LineageDefiningMutation	BA.2.10.1	
-S	N764K	C23854A	LineageDefiningMutation	BA.2.10.1	
-S	D796Y	G23948T	LineageDefiningMutation	BA.2.10.1	
-S	G798D	G23955A	LineageDefiningMutation	BA.2.10.1	
-S	Q954H	A24424T	LineageDefiningMutation	BA.2.10.1	
-S	N969K	T24469A	LineageDefiningMutation	BA.2.10.1	
-S	D1146D	C25000T	LineageDefiningMutation	BA.2.10.1	
-S	T19I	C21618T	LineageDefiningMutation	BJ.1	
-S	Deletion	T21633-	LineageDefiningMutation	BJ.1	
-S	V83A	T21810C	LineageDefiningMutation	BJ.1	
-S	G142D	G21987A	LineageDefiningMutation	BJ.1	
-S	H146Q	C22000A	LineageDefiningMutation	BJ.1	
-S	Q183E	C22109G	LineageDefiningMutation	BJ.1	
-S	V213E	T22200A	LineageDefiningMutation	BJ.1	
-S	G339H	G22577C	LineageDefiningMutation	BJ.1	
-S	R346T	G22599C	LineageDefiningMutation	BJ.1	
-S	S371F	C22674T	LineageDefiningMutation	BJ.1	
-S	S373P	T22679C	LineageDefiningMutation	BJ.1	
-S	S375F	C22686T	LineageDefiningMutation	BJ.1	
-S	T376A	A22688G	LineageDefiningMutation	BJ.1	
-S	D405N	G22775A	LineageDefiningMutation	BJ.1	
-S	R408S	A22786C	LineageDefiningMutation	BJ.1	
-S	K417N	G22813T	LineageDefiningMutation	BJ.1	
-S	N440K	T22882G	LineageDefiningMutation	BJ.1	
-S	V445P	G22895C	LineageDefiningMutation	BJ.1	
-S	G446S	G22898A	LineageDefiningMutation	BJ.1	
-S	S477N	G22992A	LineageDefiningMutation	BJ.1	
-S	T478K	C22995A	LineageDefiningMutation	BJ.1	
-S	V483A	T23010C	LineageDefiningMutation	BJ.1	
-S	E484A	A23013C	LineageDefiningMutation	BJ.1	
-S	F490V	T23030G	LineageDefiningMutation	BJ.1	
-S	Q493R	A23040G	LineageDefiningMutation	BJ.1	
-S	Q498R	A23055G	LineageDefiningMutation	BJ.1	
-S	N501Y	A23063T	LineageDefiningMutation	BJ.1	
-S	Y505H	T23075C	LineageDefiningMutation	BJ.1	
-S	D614G	A23403G	LineageDefiningMutation	BJ.1	
-S	H655Y	C23525T	LineageDefiningMutation	BJ.1	
-S	N679K	T23599G	LineageDefiningMutation	BJ.1	
-S	P681H	C23604A	LineageDefiningMutation	BJ.1	
-S	N764K	C23854A	LineageDefiningMutation	BJ.1	
-S	D796Y	G23948T	LineageDefiningMutation	BJ.1	
-S	G798D	G23955A	LineageDefiningMutation	BJ.1	
-S	Q954H	A24424T	LineageDefiningMutation	BJ.1	
-S	N969K	T24469A	LineageDefiningMutation	BJ.1	
-S	S1003I	G24570T	LineageDefiningMutation	BJ.1	
-S	D1146D	C25000T	LineageDefiningMutation	BJ.1	
-S	T19I	C21618T	LineageDefiningMutation	BA.4.6	
-S	Deletion	T21633-	LineageDefiningMutation	BA.4.6	
-S	G142D	G21987A	LineageDefiningMutation	BA.4.6	
-S	V213G	T22200G	LineageDefiningMutation	BA.4.6	
-S	G339D	G22578A	LineageDefiningMutation	BA.4.6	
-S	R346T	G22599C	LineageDefiningMutation	BA.4.6	
-S	S371F	C22674T	LineageDefiningMutation	BA.4.6	
-S	S373P	T22679C	LineageDefiningMutation	BA.4.6	
-S	S375F	C22686T	LineageDefiningMutation	BA.4.6	
-S	T376A	A22688G	LineageDefiningMutation	BA.4.6	
-S	D405N	G22775A	LineageDefiningMutation	BA.4.6	
-S	R408S	A22786C	LineageDefiningMutation	BA.4.6	
-S	K417N	G22813T	LineageDefiningMutation	BA.4.6	
-S	N440K	T22882G	LineageDefiningMutation	BA.4.6	
-S	L452R	T22917G	LineageDefiningMutation	BA.4.6	
-S	S477N	G22992A	LineageDefiningMutation	BA.4.6	
-S	T478K	C22995A	LineageDefiningMutation	BA.4.6	
-S	E484A	A23013C	LineageDefiningMutation	BA.4.6	
-S	F486V	T23018G	LineageDefiningMutation	BA.4.6	
-S	Q498R	A23055G	LineageDefiningMutation	BA.4.6	
-S	N501Y	A23063T	LineageDefiningMutation	BA.4.6	
-S	Y505H	T23075C	LineageDefiningMutation	BA.4.6	
-S	D614G	A23403G	LineageDefiningMutation	BA.4.6	
-S	H655Y	C23525T	LineageDefiningMutation	BA.4.6	
-S	N658S	A23535G	LineageDefiningMutation	BA.4.6	
-S	N679K	T23599G	LineageDefiningMutation	BA.4.6	
-S	P681H	C23604A	LineageDefiningMutation	BA.4.6	
-S	N764K	C23854A	LineageDefiningMutation	BA.4.6	
-S	D796Y	G23948T	LineageDefiningMutation	BA.4.6	
-S	Q954H	A24424T	LineageDefiningMutation	BA.4.6	
-S	N969K	T24469A	LineageDefiningMutation	BA.4.6	
-S	D1146D	C25000T	LineageDefiningMutation	BA.4.6	
-S	T19I	C21618T	LineageDefiningMutation	BH.1	
-S	T20T	C21622T	LineageDefiningMutation	BH.1	
-S	Deletion	T21633-	LineageDefiningMutation	BH.1	
-S	S71F	C21774T	LineageDefiningMutation	BH.1	
-S	G142D	G21987A	LineageDefiningMutation	BH.1	
-S	V213G	T22200G	LineageDefiningMutation	BH.1	
-S	G339D	G22578A	LineageDefiningMutation	BH.1	
-S	S371F	C22674T	LineageDefiningMutation	BH.1	
-S	S373P	T22679C	LineageDefiningMutation	BH.1	
-S	S375F	C22686T	LineageDefiningMutation	BH.1	
-S	T376A	A22688G	LineageDefiningMutation	BH.1	
-S	D405N	G22775A	LineageDefiningMutation	BH.1	
-S	R408S	A22786C	LineageDefiningMutation	BH.1	
-S	K417T	A22812C	LineageDefiningMutation	BH.1	
-S	N440K	T22882G	LineageDefiningMutation	BH.1	
-S	G446S	G22898A	LineageDefiningMutation	BH.1	
-S	L452Q	T22917A	LineageDefiningMutation	BH.1	
-S	S477N	G22992A	LineageDefiningMutation	BH.1	
-S	T478R	C22995G	LineageDefiningMutation	BH.1	
-S	E484A	A23013C	LineageDefiningMutation	BH.1	
-S	Q493R	A23040G	LineageDefiningMutation	BH.1	
-S	Q498R	A23055G	LineageDefiningMutation	BH.1	
-S	N501Y	A23063T	LineageDefiningMutation	BH.1	
-S	Y505H	T23075C	LineageDefiningMutation	BH.1	
-S	D614G	A23403G	LineageDefiningMutation	BH.1	
-S	H655Y	C23525T	LineageDefiningMutation	BH.1	
-S	N679K	T23599G	LineageDefiningMutation	BH.1	
-S	P681H	C23604A	LineageDefiningMutation	BH.1	
-S	N764K	C23854A	LineageDefiningMutation	BH.1	
-S	D796Y	G23948T	LineageDefiningMutation	BH.1	
-S	Q954H	A24424T	LineageDefiningMutation	BH.1	
-S	N969K	T24469A	LineageDefiningMutation	BH.1	
-S	D1146D	C25000T	LineageDefiningMutation	BH.1	
-S	V1264L	G25352T	LineageDefiningMutation	BH.1	
-S	T19I	C21618T	LineageDefiningMutation	BA.2.38.3	
-S	T20T	C21622T	LineageDefiningMutation	BA.2.38.3	
-S	Deletion	T21633-	LineageDefiningMutation	BA.2.38.3	
-S	S71F	C21774T	LineageDefiningMutation	BA.2.38.3	
-S	G142D	G21987A	LineageDefiningMutation	BA.2.38.3	
-S	V213G	T22200G	LineageDefiningMutation	BA.2.38.3	
-S	G339D	G22578A	LineageDefiningMutation	BA.2.38.3	
-S	S371F	C22674T	LineageDefiningMutation	BA.2.38.3	
-S	S373P	T22679C	LineageDefiningMutation	BA.2.38.3	
-S	S375F	C22686T	LineageDefiningMutation	BA.2.38.3	
-S	T376A	A22688G	LineageDefiningMutation	BA.2.38.3	
-S	D405N	G22775A	LineageDefiningMutation	BA.2.38.3	
-S	R408S	A22786C	LineageDefiningMutation	BA.2.38.3	
-S	K417T	A22812C	LineageDefiningMutation	BA.2.38.3	
-S	N440K	T22882G	LineageDefiningMutation	BA.2.38.3	
-S	S477N	G22992A	LineageDefiningMutation	BA.2.38.3	
-S	T478R	C22995G	LineageDefiningMutation	BA.2.38.3	
-S	E484A	A23013C	LineageDefiningMutation	BA.2.38.3	
-S	Q493R	A23040G	LineageDefiningMutation	BA.2.38.3	
-S	Q498R	A23055G	LineageDefiningMutation	BA.2.38.3	
-S	N501Y	A23063T	LineageDefiningMutation	BA.2.38.3	
-S	Y505H	T23075C	LineageDefiningMutation	BA.2.38.3	
-S	D614G	A23403G	LineageDefiningMutation	BA.2.38.3	
-S	H655Y	C23525T	LineageDefiningMutation	BA.2.38.3	
-S	N679K	T23599G	LineageDefiningMutation	BA.2.38.3	
-S	P681H	C23604A	LineageDefiningMutation	BA.2.38.3	
-S	N764K	C23854A	LineageDefiningMutation	BA.2.38.3	
-S	D796Y	G23948T	LineageDefiningMutation	BA.2.38.3	
-S	Q954H	A24424T	LineageDefiningMutation	BA.2.38.3	
-S	N969K	T24469A	LineageDefiningMutation	BA.2.38.3	
-S	D1146D	C25000T	LineageDefiningMutation	BA.2.38.3	
-S	V1264L	G25352T	LineageDefiningMutation	BA.2.38.3	
-S	T19I	C21618T	LineageDefiningMutation	BA.5.8	
-S	Deletion	T21633-	LineageDefiningMutation	BA.5.8	
-S	G142D	G21987A	LineageDefiningMutation	BA.5.8	
-S	V213G	T22200G	LineageDefiningMutation	BA.5.8	
-S	G339D	G22578A	LineageDefiningMutation	BA.5.8	
-S	S371F	C22674T	LineageDefiningMutation	BA.5.8	
-S	S373P	T22679C	LineageDefiningMutation	BA.5.8	
-S	S375F	C22686T	LineageDefiningMutation	BA.5.8	
-S	T376A	A22688G	LineageDefiningMutation	BA.5.8	
-S	D405N	G22775A	LineageDefiningMutation	BA.5.8	
-S	R408S	A22786C	LineageDefiningMutation	BA.5.8	
-S	K417N	G22813T	LineageDefiningMutation	BA.5.8	
-S	N440K	T22882G	LineageDefiningMutation	BA.5.8	
-S	L452R	T22917G	LineageDefiningMutation	BA.5.8	
-S	S477N	G22992A	LineageDefiningMutation	BA.5.8	
-S	T478K	C22995A	LineageDefiningMutation	BA.5.8	
-S	E484A	A23013C	LineageDefiningMutation	BA.5.8	
-S	F486V	T23018G	LineageDefiningMutation	BA.5.8	
-S	Q498R	A23055G	LineageDefiningMutation	BA.5.8	
-S	N501Y	A23063T	LineageDefiningMutation	BA.5.8	
-S	Y505H	T23075C	LineageDefiningMutation	BA.5.8	
-S	D614G	A23403G	LineageDefiningMutation	BA.5.8	
-S	H655Y	C23525T	LineageDefiningMutation	BA.5.8	
-S	N679K	T23599G	LineageDefiningMutation	BA.5.8	
-S	P681H	C23604A	LineageDefiningMutation	BA.5.8	
-S	N764K	C23854A	LineageDefiningMutation	BA.5.8	
-S	D796Y	G23948T	LineageDefiningMutation	BA.5.8	
-S	Q954H	A24424T	LineageDefiningMutation	BA.5.8	
-S	N969K	T24469A	LineageDefiningMutation	BA.5.8	
-S	D1146D	C25000T	LineageDefiningMutation	BA.5.8	
-S	P1162L	C25047T	LineageDefiningMutation	BA.5.8	
-S	T19I	C21618T	LineageDefiningMutation	BA.4.7	
-S	Deletion	T21633-	LineageDefiningMutation	BA.4.7	
-S	G142D	G21987A	LineageDefiningMutation	BA.4.7	
-S	V213G	T22200G	LineageDefiningMutation	BA.4.7	
-S	G339D	G22578A	LineageDefiningMutation	BA.4.7	
-S	R346S	A22600T	LineageDefiningMutation	BA.4.7	
-S	S371F	C22674T	LineageDefiningMutation	BA.4.7	
-S	S373P	T22679C	LineageDefiningMutation	BA.4.7	
-S	S375F	C22686T	LineageDefiningMutation	BA.4.7	
-S	T376A	A22688G	LineageDefiningMutation	BA.4.7	
-S	D405N	G22775A	LineageDefiningMutation	BA.4.7	
-S	R408S	A22786C	LineageDefiningMutation	BA.4.7	
-S	K417N	G22813T	LineageDefiningMutation	BA.4.7	
-S	N440K	T22882G	LineageDefiningMutation	BA.4.7	
-S	L452R	T22917G	LineageDefiningMutation	BA.4.7	
-S	S477N	G22992A	LineageDefiningMutation	BA.4.7	
-S	T478K	C22995A	LineageDefiningMutation	BA.4.7	
-S	E484A	A23013C	LineageDefiningMutation	BA.4.7	
-S	F486V	T23018G	LineageDefiningMutation	BA.4.7	
-S	Q498R	A23055G	LineageDefiningMutation	BA.4.7	
-S	N501Y	A23063T	LineageDefiningMutation	BA.4.7	
-S	Y505H	T23075C	LineageDefiningMutation	BA.4.7	
-S	D614G	A23403G	LineageDefiningMutation	BA.4.7	
-S	H655Y	C23525T	LineageDefiningMutation	BA.4.7	
-S	N658S	A23535G	LineageDefiningMutation	BA.4.7	
-S	N679K	T23599G	LineageDefiningMutation	BA.4.7	
-S	P681H	C23604A	LineageDefiningMutation	BA.4.7	
-S	N764K	C23854A	LineageDefiningMutation	BA.4.7	
-S	D796Y	G23948T	LineageDefiningMutation	BA.4.7	
-S	Q954H	A24424T	LineageDefiningMutation	BA.4.7	
-S	N969K	T24469A	LineageDefiningMutation	BA.4.7	
-S	D1146D	C25000T	LineageDefiningMutation	BA.4.7	
-S	T19I	C21618T	LineageDefiningMutation	BA.5.9	
-S	Deletion	T21633-	LineageDefiningMutation	BA.5.9	
-S	G142D	G21987A	LineageDefiningMutation	BA.5.9	
-S	V213G	T22200G	LineageDefiningMutation	BA.5.9	
-S	G339D	G22578A	LineageDefiningMutation	BA.5.9	
-S	R346I	G22599T	LineageDefiningMutation	BA.5.9	
-S	S371F	C22674T	LineageDefiningMutation	BA.5.9	
-S	S373P	T22679C	LineageDefiningMutation	BA.5.9	
-S	S375F	C22686T	LineageDefiningMutation	BA.5.9	
-S	T376A	A22688G	LineageDefiningMutation	BA.5.9	
-S	D405N	G22775A	LineageDefiningMutation	BA.5.9	
-S	R408S	A22786C	LineageDefiningMutation	BA.5.9	
-S	K417N	G22813T	LineageDefiningMutation	BA.5.9	
-S	N440K	T22882G	LineageDefiningMutation	BA.5.9	
-S	L452R	T22917G	LineageDefiningMutation	BA.5.9	
-S	S477N	G22992A	LineageDefiningMutation	BA.5.9	
-S	T478K	C22995A	LineageDefiningMutation	BA.5.9	
-S	E484A	A23013C	LineageDefiningMutation	BA.5.9	
-S	F486V	T23018G	LineageDefiningMutation	BA.5.9	
-S	Q498R	A23055G	LineageDefiningMutation	BA.5.9	
-S	N501Y	A23063T	LineageDefiningMutation	BA.5.9	
-S	Y505H	T23075C	LineageDefiningMutation	BA.5.9	
-S	D614G	A23403G	LineageDefiningMutation	BA.5.9	
-S	H655Y	C23525T	LineageDefiningMutation	BA.5.9	
-S	N679K	T23599G	LineageDefiningMutation	BA.5.9	
-S	P681H	C23604A	LineageDefiningMutation	BA.5.9	
-S	N764K	C23854A	LineageDefiningMutation	BA.5.9	
-S	D796Y	G23948T	LineageDefiningMutation	BA.5.9	
-S	Q954H	A24424T	LineageDefiningMutation	BA.5.9	
-S	N969K	T24469A	LineageDefiningMutation	BA.5.9	
-S	D1146D	C25000T	LineageDefiningMutation	BA.5.9	
+S	L5F	?	PositiveSelection		
+S	V11A	?	PositiveSelection		
+S	L18F	?	PositiveSelection		
+S	T20I	?	PositiveSelection		
+S	T20N	?	PositiveSelection		
+S	T22I	?	PositiveSelection		
+S	P26L	?	PositiveSelection		
+S	P26S	?	PositiveSelection		
+S	H49Y	?	PositiveSelection		
+S	S50R	?	PositiveSelection		
+S	N61A	?	PositiveSelection		
+S	N61D	?	PositiveSelection		
+S	A67V	?	PositiveSelection		
+S	A67S	?	PositiveSelection		
+S	I68T	?	PositiveSelection		
+S	H69F	?	PositiveSelection		
+S	H69Y	?	PositiveSelection		
+S	H69S	?	PositiveSelection		
+S	H69N	?	PositiveSelection		
+S	H69A	?	PositiveSelection		
+S	H69V	?	PositiveSelection		
+S	V70I	?	PositiveSelection		
+S	V70F	?	PositiveSelection		
+S	G75V	?	PositiveSelection		
+S	T76I	?	PositiveSelection		
+S	P82R	?	PositiveSelection		
+S	P82I	?	PositiveSelection		
+S	V83I	?	PositiveSelection		
+S	V83R	?	PositiveSelection		
+S	V83E	?	PositiveSelection		
+S	L84D	?	PositiveSelection		
+S	L84W	?	PositiveSelection		
+S	N87T	?	PositiveSelection		
+S	N87M	?	PositiveSelection		
+S	N87V	?	PositiveSelection		
+S	G89N	?	PositiveSelection		
+S	G89L	?	PositiveSelection		
+S	V90F	?	PositiveSelection		
+S	V90R	?	PositiveSelection		
+S	V90Q	?	PositiveSelection		
+S	Y91V	?	PositiveSelection		
+S	Y91G	?	PositiveSelection		
+S	F92K	?	PositiveSelection		
+S	F92C	?	PositiveSelection		
+S	S94F	?	PositiveSelection		
+S	S94P	?	PositiveSelection		
+S	T95I	?	PositiveSelection		
+S	K97N	?	PositiveSelection		
+S	S98F	?	PositiveSelection		
+S	S98P	?	PositiveSelection		
+S	D138Y	?	PositiveSelection		
+S	D138H	?	PositiveSelection		
+S	D138N	?	PositiveSelection		
+S	G142D	?	PositiveSelection		
+S	G142V	?	PositiveSelection		
+S	Y144D	?	PositiveSelection		
+S	Y144V	?	PositiveSelection		
+S	Y144F	?	PositiveSelection		
+S	Y144H	?	PositiveSelection		
+S	Y144S	?	PositiveSelection		
+S	Y145H	?	PositiveSelection		
+S	Y145L	?	PositiveSelection		
+S	Y145T	?	PositiveSelection		
+S	Y145S	?	PositiveSelection		
+S	Y145D	?	PositiveSelection		
+S	F157L	?	PositiveSelection		
+S	L176F	?	PositiveSelection		
+S	E180K	?	PositiveSelection		
+S	E180Q	?	PositiveSelection		
+S	F186S	?	PositiveSelection		
+S	V213L	?	PositiveSelection		
+S	V213A	?	PositiveSelection		
+S	S221L	?	PositiveSelection		
+S	A222V	?	PositiveSelection		
+S	D253G	?	PositiveSelection		
+S	D253N	?	PositiveSelection		
+S	S254F	?	PositiveSelection		
+S	S255F	?	PositiveSelection		
+S	G261S	?	PositiveSelection		
+S	G261R	?	PositiveSelection		
+S	G261V	?	PositiveSelection		
+S	G261D	?	PositiveSelection		
+S	G261A	?	PositiveSelection		
+S	T307I	?	PositiveSelection		
+S	T307A	?	PositiveSelection		
+S	V367F	?	PositiveSelection		
+S	K417N	?	PositiveSelection		
+S	K417T	?	PositiveSelection		
+S	N439K	?	PositiveSelection		
+S	N440K	?	PositiveSelection		
+S	K444R	?	PositiveSelection		
+S	G446V	?	PositiveSelection		
+S	L452R	?	PositiveSelection		
+S	L452Q	?	PositiveSelection		
+S	L452M	?	PositiveSelection		
+S	S477N	?	PositiveSelection		
+S	S477R	?	PositiveSelection		
+S	S477I	?	PositiveSelection		
+S	E484K	?	PositiveSelection		
+S	E484Q	?	PositiveSelection		
+S	F490S	?	PositiveSelection		
+S	F490L	?	PositiveSelection		
+S	N501Y	?	PositiveSelection		
+S	N501T	?	PositiveSelection		
+S	N501I	?	PositiveSelection		
+S	F543L	?	PositiveSelection		
+S	A570D	?	PositiveSelection		
+S	T572I	?	PositiveSelection		
+S	D614G	?	PositiveSelection		
+S	H655Y	?	PositiveSelection		
+S	N658K	?	PositiveSelection		
+S	N658D	?	PositiveSelection		
+S	Q677H	?	PositiveSelection		
+S	Q677R	?	PositiveSelection		
+S	N679K	?	PositiveSelection		
+S	P681H	?	PositiveSelection		
+S	P681R	?	PositiveSelection		
+S	P681L	?	PositiveSelection		
+S	A688V	?	PositiveSelection		
+S	A688S	?	PositiveSelection		
+S	T716I	?	PositiveSelection		
+S	T723I	?	PositiveSelection		
+S	A771S	?	PositiveSelection		
+S	D796Y	?	PositiveSelection		
+S	D796H	?	PositiveSelection		
+S	S813I	?	PositiveSelection		
+S	A845S	?	PositiveSelection		
+S	A846V	?	PositiveSelection		
+S	A846S	?	PositiveSelection		
+S	N856S	?	PositiveSelection		
+S	T859I	?	PositiveSelection		
+S	T859N	?	PositiveSelection		
+S	A871V	?	PositiveSelection		
+S	A871S	?	PositiveSelection		
+S	A899S	?	PositiveSelection		
+S	A924S	?	PositiveSelection		
+S	D936N	?	PositiveSelection		
+S	D936Y	?	PositiveSelection		
+S	D936H	?	PositiveSelection		
+S	D936V	?	PositiveSelection		
+S	S939F	?	PositiveSelection		
+S	S940F	?	PositiveSelection		
+S	S982A	?	PositiveSelection		
+S	Y1007T	?	PositiveSelection		
+S	Y1007S	?	PositiveSelection		
+S	L1012Y	?	PositiveSelection		
+S	R1014P	?	PositiveSelection		
+S	T1027I	?	PositiveSelection		
+S	L1063F	?	PositiveSelection		
+S	K1073M	?	PositiveSelection		
+S	A1078S	?	PositiveSelection		
+S	A1078T	?	PositiveSelection		
+S	I1114T	?	PositiveSelection		
+S	T1116S	?	PositiveSelection		
+S	D1118H	?	PositiveSelection		
+S	D1118Y	?	PositiveSelection		
+S	V1133C	?	PositiveSelection		
+S	N1134R	?	PositiveSelection		
+S	N1135S	?	PositiveSelection		
+S	N1135A	?	PositiveSelection		
+S	T1136V	?	PositiveSelection		
+S	T1136L	?	PositiveSelection		
+S	D1163Y	?	PositiveSelection		
+S	D1163N	?	PositiveSelection		
+S	G1167V	?	PositiveSelection		
+S	G1167R	?	PositiveSelection		
+S	V1176F	?	PositiveSelection		
+S	V1177N	?	PositiveSelection		
+S	V1177T	?	PositiveSelection		
+S	R1185C	?	PositiveSelection		
+S	N1187D	?	PositiveSelection		
+S	N1187Y	?	PositiveSelection		
+S	N1187S	?	PositiveSelection		
+S	N1187T	?	PositiveSelection		
+S	D1260N	?	PositiveSelection		
+S	D1260E	?	PositiveSelection		

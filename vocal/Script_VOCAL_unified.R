@@ -10,10 +10,16 @@
 ##
 suppressPackageStartupMessages(library(optparse))
 suppressPackageStartupMessages(library(digest))
-suppressPackageStartupMessages(library(tidyverse, warn.conflicts = FALSE))
-suppressPackageStartupMessages(library(lubridate, warn.conflicts = FALSE))
-suppressPackageStartupMessages(library(glue, warn.conflicts = FALSE))
-suppressPackageStartupMessages(library(igraph, warn.conflicts = FALSE))
+suppressPackageStartupMessages(library(forcats))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(stringr)) 
+suppressPackageStartupMessages(library(readr))  
+suppressPackageStartupMessages(library(tidyr))
+suppressPackageStartupMessages(library(purrr))
+suppressPackageStartupMessages(library(lubridate))
+suppressPackageStartupMessages(library(glue))
+suppressPackageStartupMessages(library(igraph))
 suppressPackageStartupMessages(library(logger, warn.conflicts = FALSE))
 
 # Suppress summarise() info
@@ -475,16 +481,27 @@ compute_alert_levels_v1 <- function(pheno_table_wide) {
             (s_moc_M >= 1 | s_moc_D >= 1) &
             (s_roi_M >= 1 | s_roi_D >= 1) ~ "lila",
           TRUE ~ "grey",
-        )
+        ),
+        impact =
+          case_when(
+            alert_level ==  "pink" | alert_level ==  "red"
+              ~ "HIGH",
+            alert_level ==  "orange"
+              ~ "MODERATE",
+            alert_level ==  "lila" | alert_level ==  "grey"
+              ~ "LOW",
+          ),
     )
   return(pheno_table_wide_with_alert)
 }
 
 var_pheno_summary_wide_with_alert = compute_alert_levels_v1(var_pheno_summary_wide)
 
-prediction_overview = var_pheno_summary_wide_with_alert %>% group_by(alert_level) %>% count()
+prediction_overview = suppressMessages(var_pheno_summary_wide_with_alert %>% group_by(alert_level) %>% count())
 log_info("Prediction Results:")
-log_info(prediction_overview)
+if (log_threshold() >= TRACE) {
+print(prediction_overview)
+}
 
 write.table(
   prediction_overview,
@@ -545,10 +562,17 @@ mutations_per_alert_level = suppressMessages(var_pheno_summary_wide_with_alert  
 
 alert_level_groups_with_clusters = mutations_per_alert_level %>%
   mutate(clusters = map(data, get_sequence_clusters))
-
+print("Test")
+if(nrow(alert_level_groups_with_clusters) != 0){
 alerts_with_clusters_ID = alert_level_groups_with_clusters %>% select(-data) %>%
   unnest(c(alert_level, clusters)) %>%
   rename(cluster_ID_in_alert_level = cluster_ID)
+}else{
+# assign empty
+alerts_with_clusters_ID <- data.frame(alert_level=character(), ID=character(), cluster_ID_in_alert_level=character(),
+                         cluster_size=numeric())
+}
+
 
 vocal_list_samples_with_alert = suppressMessages(var_pheno_summary_wide_with_alert %>%
   left_join(alerts_with_clusters_ID) %>%
@@ -689,4 +713,4 @@ error = function(e) {
   )
   stop("error at vocal-samples-out", as.character(e))
 })
-log_trace("** Success **")
+log_info("** Success **")

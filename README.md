@@ -6,6 +6,10 @@
 The goal of VOCAL is to detect sc-2 emerging variants from collected bases of genomes, before their annotation by phylogenetic analysis.
 It does so by parsing sc2 genomes and detecting amino acids mutations in the spike proteins that can be associated with a phenotypic change. The phenotypic changes are annotated according to the knowledge accumulated on previous variants. Owing to the limited size of the genome, convergent evolution is expected to take place. 
 
+# Documentation.
+
+<a href="https://rki-mf1.github.io/vocal-doc/"><strong>Explore the docs »</strong></a>
+
 # Getting Started
 
 ⚠️**Note**: 🔌 Right now, VOCAL tested on Linux system only 💻 
@@ -20,7 +24,7 @@ git clone https://github.com/rki-mf1/vocal.git
 You can easly install all dependencies with conda:
 ```
 cd vocal
-conda create -n vocal -f env/environment.yml
+conda env create -n vocal -f environment.yml
 conda activate vocal
 ```
 
@@ -89,6 +93,8 @@ python  vocal/Reporter.py  \
         -o results/vocal-report.html 
 ```
 
+Please visit <a href="https://rki-mf1.github.io/vocal-doc/"><strong>Explore the docs »</strong></a>
+
 # How to interprete result.
 
 Vocal output an alert level in 5 different colours which can be classified into 3 ratings.
@@ -101,10 +107,6 @@ Vocal output an alert level in 5 different colours which can be classified into 
 | Lila | Mostly harmless variant (near-zero mutation size for MOC or ROI). | LOW |
 | Grey | No evidence of impact (either no MOC or no ROI).     | LOW |
 
-# Documentation.
-
-<a href="https://rki-mf1.github.io/vocal-doc/"><strong>Explore the docs »</strong></a>
-
 # Contact
 
 Did you find a bug?🐛 Suggestion/Feedback/Feature request?👨‍💻 please visit [GitHub Issues](https://github.com/rki-mf1/vocal/issues)
@@ -116,8 +118,7 @@ Dr. Hölzer, Martin(<HoelzerM@rki.de>) or Dr. Richard, Hugues (<RichardH@rki.de>
 
 * Original Idea: SC2 Evolution Working group - M. von Kleist, S. Clavignac-Spencer
 
-* Funding: HERA project 
+* Funding: Supported by the European Centers for Disease Control [grant number ECDC GRANT/2021/008 ECD.12222].
 
-# Citation ?
-XXXXX
+
 

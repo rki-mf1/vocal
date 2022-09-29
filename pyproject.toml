@@ -1,0 +1,63 @@
+[tool.poetry]
+name = "vocal"
+version = "0.0.8"
+description = "VOCAL:Variant Of Concern ALert and prioritization"
+authors = ["Hölzer, Martin <HoelzerM@rki.de>", "Kunaphas Kongkitimanon <KongkitimanonK@rki.de>", "Richard, Hugues <RichardH@rki.de>"]
+license = ""
+readme = "README.md"
+homepage = "https://rki-mf1.github.io/vocal-doc/"
+repository = "https://github.com/rki-mf1/vocal"
+keywords = ["vocal", "variant-detection", "early-warning-system", "integrated-molecular"]
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+icu = "~68.2"
+zip = "~3.0"
+biopython = "~1.79"
+pandas = "~1.3.3"
+pblat = "~2.5"
+requests = "~2.27.1"
+openpyxl = "~3.0.9"
+tqdm = "~4.62.3"
+markupsafe = "~2.0.1"
+jinja2 = "~2.11.3"
+htmlmin = "~0.1.12"
+r-base = "~4.0.5"
+r-optparse = "~1.7.1"
+r-readr = "~2.0.2"
+r-logger = "~0.2.2"
+r-lubridate = "~1.8.0"
+r-purrr = "~0.3.4"
+r-forcats = "~0.5.1"
+r-stringr = "~1.4.0"
+r-ggplot2 = "~3.3.6"
+r-tidyr = "~1.2.0"
+r-dplyr = "~1.0.7"
+r-digest = "~0.6.28"
+r-igraph = "~1.2.7"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+coverage = {extras = ["toml"], version = "^6.4.1"}
+pytest-cov = "^3.0.0"
+black = "^22.6.0"
+flake8 = "^4.0.1"
+flake8-bandit = "^3.0.0"
+flake8-black = "^0.3.3"
+flake8-bugbear = "^22.6.22"
+flake8-import-order = "^0.18.1"
+# safety = "^2.0.0"
+
+[tool.coverage.report]
+show_missing = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[[tool.poetry.source]]
+name = "conda"
+url = "https://conda.anaconda.org"
+secondary = true

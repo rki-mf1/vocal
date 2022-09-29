@@ -1,0 +1,11 @@
+[flake8]
+select = BLK,C,E,F,I,W
+ignore = E203,W503,E501,E741
+max-line-length = 88
+max-complexity = 12
+application-import-names = vocal
+import-order-style = google
+
+per-file-ignores =
+    vocal/Reporter.py:F841
+    vocal/utils/rkimail.py:C901

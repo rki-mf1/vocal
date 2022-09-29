@@ -7,6 +7,7 @@ helper functions for aligning sequences from the BioPython pairwise2 library
 """
 
 import time
+
 from Bio import pairwise2
 
 """
@@ -18,10 +19,10 @@ Historical aligner part
 
 
 def initialize_matrix(len1, len2, gap_penalty):
-    matrix = [0 for i in range((len1+1)*(len2+1))]
-    for i in range(1, len1+1):
-        matrix[i*(len2+1)] = gap_penalty * i
-    for j in range(1, len2+1):
+    matrix = [0 for i in range((len1 + 1) * (len2 + 1))]
+    for i in range(1, len1 + 1):
+        matrix[i * (len2 + 1)] = gap_penalty * i
+    for j in range(1, len2 + 1):
         matrix[j] = gap_penalty * j
     return matrix
 
@@ -33,22 +34,21 @@ def needleman_wunsch(string1, string2, matrix, scoring_scheme):
     """
     len1 = len(string1)
     len2 = len(string2)
-    traceback_matrix = [1 for i in range((len1+1)*(len2+1))]
-    for i in range(1, len2+1):
+    traceback_matrix = [1 for i in range((len1 + 1) * (len2 + 1))]
+    for i in range(1, len2 + 1):
         traceback_matrix[i] = 2
-    for j in range(1, len2+1):
-        for i in range(1, len1+1):
-            cursor = i*(len2+1)+j
-            if string1[i-1] == string2[j-1]:
-                match_score = matrix[cursor-len2-2] + scoring_scheme[0]
+    for j in range(1, len2 + 1):
+        for i in range(1, len1 + 1):
+            cursor = i * (len2 + 1) + j
+            if string1[i - 1] == string2[j - 1]:
+                match_score = matrix[cursor - len2 - 2] + scoring_scheme[0]
             else:
-                match_score = matrix[cursor-len2-2] + scoring_scheme[1]
-            insert_score = matrix[cursor-len2-1] + scoring_scheme[2]
-            delete_score = matrix[cursor-1] + scoring_scheme[2]
+                match_score = matrix[cursor - len2 - 2] + scoring_scheme[1]
+            insert_score = matrix[cursor - len2 - 1] + scoring_scheme[2]
+            delete_score = matrix[cursor - 1] + scoring_scheme[2]
             possible_scores = [match_score, insert_score, delete_score]
             matrix[cursor] = max(possible_scores)
-            traceback_matrix[cursor] = possible_scores.index(
-                max(possible_scores))
+            traceback_matrix[cursor] = possible_scores.index(max(possible_scores))
     return traceback_matrix
 
 
@@ -60,8 +60,8 @@ def traceback(traceback_matrix, string1, string2):
     len2 = len(string2)
     aligned1 = []
     aligned2 = []
-    position1 = len(string1)-1
-    position2 = len(string2)-1
+    position1 = len(string1) - 1
+    position2 = len(string2) - 1
     while not position1 == position2 == -1:
         if traceback_matrix[cursor] == 0:
             aligned1.append(string1[position1])
@@ -123,10 +123,13 @@ Biopython part
 
 """
 
-def Biopairwise_align(ref_seq, query_seq, match = 2, mismatch = -1,
-                        gap_open = -2, gap_extend = -0.5):
-    alignments = pairwise2.align.localms(ref_seq, query_seq,
-                                        match, mismatch, gap_open, gap_extend)
+
+def Biopairwise_align(
+    ref_seq, query_seq, match=2, mismatch=-1, gap_open=-2, gap_extend=-0.5
+):
+    alignments = pairwise2.align.localms(
+        ref_seq, query_seq, match, mismatch, gap_open, gap_extend
+    )
     al_start, al_end = alignments[0].start, alignments[0].end
     ref_al = alignments[0].seqA[al_start:al_end]
     query_al = alignments[0].seqB[al_start:al_end]
