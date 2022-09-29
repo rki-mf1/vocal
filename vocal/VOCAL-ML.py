@@ -91,7 +91,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     if len(sys.argv) == 1:
-        logging.warning("Usage example: ")
+        print("Usage example: ")
         print(
             "python vocal/VOCAL-ML.py -i vocal-alerts-samples-all.PS.csv  -o vocal-alerts-samples-all.pred.PS.csv"
         )

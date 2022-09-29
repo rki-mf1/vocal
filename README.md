@@ -93,6 +93,8 @@ python  vocal/Reporter.py  \
         -o results/vocal-report.html 
 ```
 
+Please visit <a href="https://rki-mf1.github.io/vocal-doc/"><strong>Explore the docs »</strong></a>
+
 # How to interprete result.
 
 Vocal output an alert level in 5 different colours which can be classified into 3 ratings.
