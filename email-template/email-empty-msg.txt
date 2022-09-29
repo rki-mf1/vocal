@@ -1,7 +1,0 @@
-Hey,
-
-There is no analysis result for today. Because output from covSonar is empty.
-If you find this incident is very suspicious for today, please run investigation.
-
-With love,
-Vocal Team

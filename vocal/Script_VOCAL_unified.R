@@ -481,7 +481,16 @@ compute_alert_levels_v1 <- function(pheno_table_wide) {
             (s_moc_M >= 1 | s_moc_D >= 1) &
             (s_roi_M >= 1 | s_roi_D >= 1) ~ "lila",
           TRUE ~ "grey",
-        )
+        ),
+        impact =
+          case_when(
+            alert_level ==  "pink" | alert_level ==  "red"
+              ~ "HIGH",
+            alert_level ==  "orange"
+              ~ "MODERATE",
+            alert_level ==  "lila" | alert_level ==  "grey"
+              ~ "LOW",
+          ),
     )
   return(pheno_table_wide_with_alert)
 }
@@ -553,10 +562,17 @@ mutations_per_alert_level = suppressMessages(var_pheno_summary_wide_with_alert  
 
 alert_level_groups_with_clusters = mutations_per_alert_level %>%
   mutate(clusters = map(data, get_sequence_clusters))
-
+print("Test")
+if(nrow(alert_level_groups_with_clusters) != 0){
 alerts_with_clusters_ID = alert_level_groups_with_clusters %>% select(-data) %>%
   unnest(c(alert_level, clusters)) %>%
   rename(cluster_ID_in_alert_level = cluster_ID)
+}else{
+# assign empty
+alerts_with_clusters_ID <- data.frame(alert_level=character(), ID=character(), cluster_ID_in_alert_level=character(),
+                         cluster_size=numeric())
+}
+
 
 vocal_list_samples_with_alert = suppressMessages(var_pheno_summary_wide_with_alert %>%
   left_join(alerts_with_clusters_ID) %>%

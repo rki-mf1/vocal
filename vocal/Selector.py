@@ -1,17 +1,17 @@
 import argparse as ap
-from operator import index
-import timeit as ti
-import sys
-import os
 import datetime
-import pandas as pd
-from tqdm import tqdm
-from Mutations2Function import aggregateMutationTable, merge_variants_annotation
-import re
-import numpy as np
-from os import getpid
 from multiprocessing import Pool
-from utils.utility import ROOT_DIR, S_proteinseq
+import os
+import re
+import sys
+import timeit as ti
+
+from Mutations2Function import aggregateMutationTable
+from Mutations2Function import merge_variants_annotation
+import numpy as np
+import pandas as pd
+from utils.utility import ROOT_DIR
+from utils.utility import S_proteinseq
 
 print(ROOT_DIR)
 deletion_df = pd.read_csv(
@@ -90,8 +90,8 @@ def main(args):
             pass
 
 
-## Convert deletion to Vocal deletion format
-## Find variant_size, variant_type
+# Convert deletion to Vocal deletion format
+# Find variant_size, variant_type
 def fix_format(_df):
     temp = re.compile("([*a-zA-Z]+)([0-9]+)([*a-zA-Z]+)")  # "R214REPE" "R256E"
     temp_del = re.compile("([*a-zA-Z]+)([0-9]+)-([0-9]+)([*a-zA-Z]+)")  # HV69-70del
@@ -154,7 +154,7 @@ def fix_format(_df):
                     _df.loc[idx, "aa_pos_ref_start"] = 0
                     print("Warning: Found unsupported format")
                     print(row)
-        except:
+        except Exception:
             print(row)
             raise
     _df["variant_size"] = _df["variant_size"].astype(np.int8)
@@ -214,7 +214,7 @@ def main_covSonar(args):
     # check input
     df_variants = pd.read_csv(covSonar_output, sep="\t")
     want_to_join = df_variants[["accession", "lineage"]]
-    ## Start to clear format
+    # Start to clear format
 
     print(
         "These samples will not be processed due to no AA profile present:",
@@ -222,7 +222,7 @@ def main_covSonar(args):
     )
     df_variants = df_variants[
         df_variants.aa_profile.notnull()
-    ]  ## remove null AA profile
+    ]  # remove null AA profile
     b = pd.DataFrame(
         df_variants.aa_profile.str.split(" ").tolist(), index=df_variants.accession
     ).stack()
@@ -230,7 +230,7 @@ def main_covSonar(args):
     b.columns = ["aa_profile", "accession"]  # renaming aa_profile
     b["aa_profile"] = b["aa_profile"].str.strip()  # clear all space
     b["target_gene"] = b["aa_profile"].str.split(":").str[0]
-    b = b[b["target_gene"] == "S"]  ## only S gene
+    b = b[b["target_gene"] == "S"]  # only S gene
     b.reset_index(drop=True, inplace=True)
     b["aa_profile"] = b["aa_profile"].str.split(":", 1).str[1]
     b = b.merge(want_to_join, on="accession")
@@ -247,7 +247,7 @@ def main_covSonar(args):
     )
     _new_df["nt_pattern"] = ""
     # print(len(_new_df))
-    ## Final
+    # Final
     columns_save = [
         "ID",
         "target_gene",
@@ -282,7 +282,7 @@ if __name__ == "__main__":
     subparsers.required = True
 
     # print("This tool works for autopilot system only. It uses for selecting a seqeunce with a given timeframe \n")
-   
+
     parser_select_covsonar = subparsers.add_parser(
         "convert-covSonar",
         help="convert covSonar output (from match command) into VOCAL format which can be used in detection.",
@@ -311,7 +311,7 @@ if __name__ == "__main__":
         "-a",
         "--annotation",
         required=True,
-        default="../data/table_cov2_mutations_annotation.tsv",
+        default="data/table_cov2_mutations_annotation.tsv",
         help="Table with information about lineage defining mutation and Variants Of Concern (data/table_cov2_mutations_annotation.tsv)",
     )
 
@@ -325,4 +325,4 @@ if __name__ == "__main__":
     else:
         sys.exit("please input a correct command")
     t2 = ti.default_timer()
-    print("Processing time: {} seconds".format(round(t2 - t1), 2))
+    print("Processing time: {} seconds".format(round(t2 - t1, 2)))

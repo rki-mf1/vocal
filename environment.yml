@@ -1,6 +1,6 @@
 name: vocal
 channels:
-  - conda-forge 
+  - conda-forge
   - bioconda
   - r
   - defaults
@@ -28,5 +28,8 @@ dependencies:
   - openpyxl=3.0.9
   - tqdm=4.62.3
   - markupsafe=2.0.1
-  - jinja2=2.11.3 
-  - htmlmin=0.1.12 
+  - jinja2=2.11.3
+  - htmlmin=0.1.12
+  - scikit-learn=1.1.1
+  - pip:
+    - pango_aliasor==0.2.0

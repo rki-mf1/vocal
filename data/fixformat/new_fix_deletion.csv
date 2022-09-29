@@ -164,3 +164,9 @@ G142,del:21987:9,NONE,S:del:142:4     ,GVY142-144del,"tmp solution for BA.2, omi
 N211,del:22194:3,NONE,S:del:211:2     ,N211-211del,"tmp solution for BA.2, omicron"
 H69,del:21765:6,Q.1,S:del:68:3,HV69-70del,
 H69,del:21765:6,Q.2,S:del:68:3 ,HV69-70del,
+H69,del:21765:6,BA.4,S:del:68:3,HV69-70del,
+L24,del:21633:9,BA.4,S:del:24:4,LPP24-26del,
+H69,del:21765:6,BA.5,S:del:68:3,HV69-70del,
+L24,del:21633:9,BA.5,S:del:24:4,LPP24-26del,
+L24,del:21633:9,BA.2.21.1,S:del:24:4,LPP24-26del,
+L24,del:21633:9,BA.2.75,S:del:24:4,LPP24-26del,

@@ -2,61 +2,76 @@
 # Maintainer: KongkitimanonK
 # The method originally came from https://github.com/cov-lineages/pango-designation.
 # We just adapt and change some parts to be used in covSonar and VOCAL.
-import os
-import sys
-import pandas as pd
 import argparse
 import datetime
-from tempfile import  mkdtemp
 import json
-import requests
+import os
 import shutil
-from utils.utility import update_version, get_current_date, ROOT_DIR
+import sys
+from tempfile import mkdtemp
 
+import pandas as pd
+import requests
+from utils.utility import get_current_date
+from utils.utility import ROOT_DIR
+from utils.utility import update_version
 
-class Aliasor:
-    def __init__(self, alias_file):
+try:  # noqa: C901
+    from pango_aliasor.aliasor import Aliasor
+except ModuleNotFoundError:  # pragma: no cover
+    print(
+        "Dependency `pango_aliasor` missing, please install using `pip install pango_aliasor`"
+    )
+    print("Fall back to original Aliasor...")
 
-        aliases = pd.read_json(alias_file)
+    class Aliasor:
+        def __init__(self, alias_file=None):
+            import json
 
-        self.alias_dict = {}
-        for column in aliases.columns:
-            if column.startswith("X"):
-                self.alias_dict[column] = column
+            if alias_file is None:
+                import importlib.resources
+
+                with importlib.resources.open_text(
+                    "pango_designation", "alias_key.json"
+                ) as file:
+                    file = json.load(file)
+
             else:
-                self.alias_dict[column] = aliases[column][0]
+                with open(alias_file) as file:
+                    file = json.load(file)
 
-        self.alias_dict["A"] = "A"
-        self.alias_dict["B"] = "B"
+            self.alias_dict = {}
+            for column in file.keys():
+                if type(file[column]) is list or file[column] == "":
+                    self.alias_dict[column] = column
+                else:
+                    self.alias_dict[column] = file[column]
 
-        self.realias_dict = {v: k for k, v in self.alias_dict.items()}
+            self.realias_dict = {v: k for k, v in self.alias_dict.items()}
 
-    def compress(self, name):
-        name_split = name.split(".")
-        # print(name_split)
-        if len(name_split) < 5:
-            return name
-        letter = self.realias_dict[".".join(name_split[0:4])]
-        if len(name_split) == 5:
-            # print('len5:'+letter + '.' + name_split[4])
-            return letter + "." + name_split[4]
-        else:
-            # print('len6:'+letter + '.' + ".".join(name_split[4:]))
-            return letter + "." + ".".join(name_split[4:])
+        def compress(self, name):
+            name_split = name.split(".")
+            levels = len(name_split) - 1
+            num_indirections = (levels - 1) // 3
+            if num_indirections <= 0:
+                return name
+            alias = ".".join(name_split[0 : (3 * num_indirections + 1)])
+            ending = ".".join(name_split[(3 * num_indirections + 1) :])
+            return self.realias_dict[alias] + "." + ending
 
-    def uncompress(self, name):
-        name_split = name.split(".")
-        # print(name_split)
-        letter = name_split[0]
-        unaliased = self.alias_dict[letter]
-        if len(name_split) == 1:
-            return name
-        if len(name_split) == 2:
-            # print('len2:'+unaliased + '.' + name_split[1])
-            return unaliased + "." + name_split[1]
-        else:
-            # print('len3:'+unaliased + '.' + ".".join(name_split[1:]))
-            return unaliased + "." + ".".join(name_split[1:])
+        def uncompress(self, name):
+            name_split = name.split(".")
+            letter = name_split[0]
+            try:
+                unaliased = self.alias_dict[letter]
+            except KeyError:
+                return name
+            if len(name_split) == 1:
+                return name
+            if len(name_split) == 2:
+                return unaliased + "." + name_split[1]
+            else:
+                return unaliased + "." + ".".join(name_split[1:])
 
 
 def lts(lineage):
@@ -86,52 +101,46 @@ def download_source(tmp_dir):
 
 
 def process_lineage(alias_key_path, lineages_path, output):
-    print("Calculate all lineages")
-    
-    # handle duplicate values
-    with open(alias_key_path) as f:
-		# load json objects to dictionaries
-        data_dict = json.load(f)
-
-    for k, v in data_dict.items():
-        if type(v) is list:
-            data_dict[k] = list(set(v))
-	# rewrite the json
-    with open(alias_key_path ,'w') as nf:
-        json.dump(data_dict, nf)
-
     aliasor = Aliasor(alias_key_path)
     df_lineages = pd.read_csv(lineages_path)
     lineages = df_lineages.lineage.unique()
-    #%%
+
     uncompressed_lineages = []
     sorted_lineages = []
-    print("Calculate parent-child relationship")
-    for ch in map(aliasor.uncompress, lineages):
-        uncompressed_lineages.append(ch)
+
+    # Calculating parent-child relationship
+    cleanedlineages = [x for x in lineages if str(x) != "nan"]
+    uncompressed_lineages = list(map(aliasor.uncompress, cleanedlineages))
     uncompressed_lineages.sort(key=lts)
-    for ch in map(aliasor.compress, uncompressed_lineages):
-        sorted_lineages.append(ch)
-    #%%
-    print("To output")
-    df = pd.DataFrame()
-    for _id in lineages:
-        sub_lineage_char = aliasor.realias_dict.get(_id)
+    sorted_lineages = list(map(aliasor.compress, uncompressed_lineages))
+
+    _final_list = []
+    for _id in sorted_lineages:
+        alias_lineage_char = aliasor.uncompress(_id)
         sub_lineage_list = []
+        row_dict = {}
+        # print(_id, '=',alias_lineage_char)
 
-        for name_ in sorted_lineages:
-            letter = name_.split(".")[0]
-            if sub_lineage_char == letter:
-                sub_lineage_list.append(name_)
-
-        sub_lineage_list = list(filter((_id).__ne__, sub_lineage_list))
-        if len(sub_lineage_list):
-            df = df.append(
-                {"lineage": _id, "sublineage": ",".join(sub_lineage_list)},
-                ignore_index=True,
-            )
+        for name_ in uncompressed_lineages:  # fetch all lineage again
+            root = ""
+            for index, letter in enumerate(name_.split(".")):
+                if index != 0:
+                    letter = root + "." + letter
+                root = letter
+                if letter == alias_lineage_char:
+                    sub_lineage_list.append(aliasor.compress(name_))
+        # remove root lineage
+        sub_lineage_list.remove(_id)
+        if len(sub_lineage_list) > 0:
+            row_dict["lineage"] = _id
+            row_dict["sublineage"] = ",".join(sub_lineage_list)
         else:
-            df = df.append({"lineage": _id, "sublineage": "none"}, ignore_index=True)
+            row_dict["lineage"] = _id
+            row_dict["sublineage"] = "none"
+        _final_list.append(row_dict)
+
+    df = pd.DataFrame.from_dict(_final_list, orient="columns")
+    df = df.sort_values(by=["lineage"])
     df.to_csv(output, sep="\t", index=False)
 
     # update_version()
@@ -187,8 +196,10 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     if len(sys.argv) == 1:
-        print('Usage example: python update.lineages.py -l lineags.csv -a alias_key.json -o lineages.all.tsv')
-        print('python update.lineages.py --online')
-        print('python update.lineages.py -h')
+        print(
+            "Usage example: python update.lineages.py -l lineags.csv -a alias_key.json -o lineages.all.tsv"
+        )
+        print("python update.lineages.py --online")
+        print("python update.lineages.py -h")
     else:
         main(args)

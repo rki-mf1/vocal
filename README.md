@@ -24,7 +24,7 @@ git clone https://github.com/rki-mf1/vocal.git
 You can easly install all dependencies with conda:
 ```
 cd vocal
-conda create -n vocal -f env/environment.yml
+conda env create -n vocal -f environment.yml
 conda activate vocal
 ```
 

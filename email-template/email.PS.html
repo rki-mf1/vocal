@@ -529,8 +529,38 @@ $(document).ready(function() {
   <div id="loader" class="center"></div>
   <div class="container-fluid p-5 bg-primary text-white text-center">
      <h1>Vocal Report [{{from_date}}]-[{{to_date}}]</h1>
+     <h2>Positive Selection</h2>
   </div>
+
    <div class="container mt-3">
+      <div class="card text-dark bg-warning" >
+         <div class="card-header">
+               <h5 class="card-title">
+               <div class="spinner-grow text-danger" role="status">
+               <span class="visually-hidden"></span>
+               </div>
+               Warning: VOCAL-PS alpha Version</h5>
+         </div>
+         <div class="card-body">
+         <p class="card-text">
+            <ul>
+               <li>
+                  This report is generated from VOCAL-PS which means we use
+                  the positive selection site information <span class='text-danger'> (Jan-Mar. 2021)  </span>to predict alert level.
+               </li>
+               <li>
+                 In this version, We also introduce our machine learning model, and the result represents in the 'ML_concern column'. The ML model tries to predict a given variant as YES/NO which means should we concern about the given variant or not?
+                 <span class='text-danger'> (Note: you might want to ignore ML result with pink alert.(interpret results with caution)) </span>
+               </li>
+               <li>
+                  Right now MOC = PS site (we will change the name soon)
+               </li>
+            </ul>
+
+         </p>
+         </div>
+       </div>
+
      <h2>How to interprete Alert Code</h2>
      <table class="table table-bordered">
         <thead>
