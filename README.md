@@ -12,7 +12,7 @@ It does so by parsing sc2 genomes and detecting amino acids mutations in the spi
 
 # Getting Started
 
-⚠️**Note**: 🔌 Right now, VOCAL tested on Linux system only 💻 
+⚠️**Note**: 🔌 Right now, VOCAL tested on Linux and Mac system only 💻 
 
 ## Installation
 
