@@ -116,7 +116,7 @@ Dr. Hölzer, Martin(<HoelzerM@rki.de>) or Dr. Richard, Hugues (<RichardH@rki.de>
 
 # Acknowledgments
 
-* Original Idea: SC2 Evolution Working group - M. von Kleist, S. Clavignac-Spencer
+* Original Idea: SC2 Evolution Working group at the Robert Koch Institute in Berlin
 
 * Funding: Supported by the European Centers for Disease Control [grant number ECDC GRANT/2021/008 ECD.12222].
 
