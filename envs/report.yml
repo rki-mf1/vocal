@@ -1,0 +1,23 @@
+name: report
+channels:
+  - conda-forge
+  - bioconda
+  - r
+  - defaults
+dependencies:
+  - python=3.9.7
+  - pandas=1.3.3
+  - jinja2=2.11.3
+  - r-base=4.0.5
+  - r-optparse=1.7.1
+  - r-readr=2.0.2
+  - r-logger=0.2.2
+  - r-lubridate=1.8.0
+  - r-purrr=0.3.4
+  - r-forcats=0.5.1
+  - r-stringr=1.4.0
+  - r-ggplot2=3.3.6
+  - r-tidyr=1.2.0
+  - r-dplyr=1.0.7
+  - r-digest=0.6.28
+  - r-igraph=1.2.7

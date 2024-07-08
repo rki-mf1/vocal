@@ -143,6 +143,15 @@ rsconnect/
 # Mac
 .DS_Store
 
+# local folders
+work/
 result/
-
 results/
+
+# conda
+conda/
+.conda/
+
+# nextflow
+.nextflow/
+.nextflow.log*

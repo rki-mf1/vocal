@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Functions to process PSL alignments fieldnames
 

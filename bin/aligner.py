@@ -1,5 +1,6 @@
-"""
+#!/usr/bin/env python
 
+"""
 Historical pairwise global aligner using the needleman_wunsch algorithm and
 helper functions for aligning sequences from the BioPython pairwise2 library
 

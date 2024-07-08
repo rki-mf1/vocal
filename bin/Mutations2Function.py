@@ -1,17 +1,14 @@
-"""
+#!/usr/bin/env python
 
+"""
 Annotate the list of mutations found in a dataframe
 
 @hrichard
-
 """
 
 from data_loader_tmp import DF_SPIKE_ROI
 import pandas as pd
 import argparse
-import os
-
-
 
 def aggregateMutationTable(df_annot, group_cols = ['gene', 'amino acid', 'type'],
                             ID_col = 'ID', comment_col = 'comment',

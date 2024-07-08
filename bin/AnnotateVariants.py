@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Annotate a set of variants
 

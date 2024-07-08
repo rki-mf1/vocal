@@ -1,5 +1,6 @@
-"""
+#!/usr/bin/env python
 
+"""
 Vocal is a simple Variants of Concern Alert System Script
 
 @hrichard @StefanFrankBio @hoelzer

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import argparse as ap
 from operator import index
 import timeit as ti
@@ -5,7 +7,6 @@ import sys
 import os
 import datetime
 import pandas as pd
-from tqdm import tqdm
 from Mutations2Function import aggregateMutationTable, merge_variants_annotation
 import re
 import numpy as np
