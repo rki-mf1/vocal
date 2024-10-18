@@ -9,8 +9,9 @@ if (params.help) { exit 0, helpMSG() }
 
 // Parameters sanity checking
 Set valid_params = ['cores', 'max_cores', 'memory', 'help',
-                    'fasta', 'metadata', 'psl', 'strict', 
-                    'output', 'vocal_dir', 'annot_dir', 'report_dir', 'runinfo_dir',
+                    'fasta', 'metadata', 'year', 'psl', 'strict', 
+                    'output', 'preprocess_dir', 'vocal_dir', 
+                    'annot_dir', 'report_dir', 'runinfo_dir',
                     'publish_dir_mode', 'conda_cache_dir',
                     'cloudProcess', 'cloud-process']
 
@@ -33,23 +34,35 @@ include { VOCAL_SUB } from '../subworkflows/local/sub_vocal'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-workflow VOCAL {
+workflow VIRUSWARN_SC2 {
 
 ref_nt = Channel.fromPath( file("test/ref.fna", checkIfExists: true) )
 
 input_fasta = Channel.fromPath( file("${params.fasta}", checkIfExists: true) )
 
-mutation_table =  Channel.fromPath( file("data/table_cov2_mutations_annotation.tsv", checkIfExists: true) )
+if (params.year == 2022) {
+    log.info"INFO: VirusWarn-SC2 uses mutation, lineage and VOC/VOI/VUM information from November 2022"
+    mutation_table =  Channel.fromPath( file("data/2022-11/table_cov2_mutations_annotation.tsv", checkIfExists: true) )
+    ecdc =  Channel.fromPath( file("data/2022-11/ECDC_assigned_variants.csv", checkIfExists: true) )
+    lineages =  Channel.fromPath( file("data/2022-11/lineage.all.tsv", checkIfExists: true) )
+} else if (params.year == 2021) {
+    log.info"INFO: VirusWarn-SC2 uses mutation, lineage and VOC/VOI/VUM information from September 2021"
+    mutation_table =  Channel.fromPath( file("data/2021-09/table_cov2_mutations_annotation.tsv", checkIfExists: true) )
+    ecdc =  Channel.fromPath( file("data/2021-09/ECDC_assigned_variants.csv", checkIfExists: true) )
+    lineages =  Channel.fromPath( file("data/2021-09/lineage.all.tsv", checkIfExists: true) )
+} else {
+    exit 1,
+    "ERROR: $params.year is an invalid input for the parameter year!"
+}
 
 if (params.metadata != '') {
     metadata = Channel.fromPath( file("${params.metadata}", checkIfExists: true) )
 } else {
+    log.warn"WARNING! No metadata file was given. This can lead to problems, like not correctly identifying pink alerts!"
     metadata = params.metadata
 }
 
-ecdc =  Channel.fromPath( file("data/ECDC_assigned_variants.csv", checkIfExists: true) )
 bloom =  Channel.fromPath( file("data/escape_data_bloom_lab.csv", checkIfExists: true) )
-lineages =  Channel.fromPath( file("data/lineage.all.tsv", checkIfExists: true) )
 
 vocal_version = Channel.fromPath( file(".version", checkIfExists: true) )
 db_version = Channel.fromPath( file("data/.db_version", checkIfExists: true) )
@@ -83,7 +96,7 @@ def helpMSG() {
     
     ${c_blue}Robert Koch Institute, MF1 Bioinformatics${c_reset}
 
-    Workflow: VOCAL
+    Workflow: VirusWarn-SC2
 
     ${c_yellow}Usage examples:${c_reset}
     nextflow run main.nf -profile conda,local --fasta 'test/sample-test.fasta'
@@ -91,8 +104,11 @@ def helpMSG() {
     ${c_yellow}Input options:${c_reset}
     ${c_green} --fasta ${c_reset}           REQUIRED! Path to the input fasta file.
                         [ default: $params.fasta ]
-    ${c_green} --metadata ${c_reset}           Path to the metadata file.
+    ${c_green} --metadata ${c_reset}        Path to the metadata file.
                         [ default: $params.metadata ]
+    ${c_green} --year ${c_reset}            Specify the year from which the information should 
+                        be used for the ranking.
+                        [ default: $params.year ]
     ${c_green} --psl ${c_reset}             Run process with pblat alignment.
                         [ default: $params.psl ]
     ${c_green} --strict ${c_reset}          Run process with strict alert levels (without orange).
@@ -105,7 +121,7 @@ def helpMSG() {
     ${c_yellow}Output options:${c_reset}
     --output                 Name of the result folder [default: $params.output]
     --publish_dir_mode       Mode of output publishing: 'copy', 'symlink' [default: $params.publish_dir_mode]
-                                ${c_dim}With 'symlink' results are lost when removing the work directory.${c_reset}
+                        ${c_dim}With 'symlink' results are lost when removing the work directory.${c_reset}
     ${c_yellow}Caching:${c_reset}
     --conda_cache_dir        Location for storing the conda environments [default: $params.conda_cache_dir]
     

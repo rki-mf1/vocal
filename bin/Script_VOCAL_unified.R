@@ -159,7 +159,6 @@ lookback_duration = NULL
 ## File paths and dates
 earliestdate = "2020-01-01"
 
-# file_variant_table = "variants_with_phenotype_sc2-global-2021-04-21.tsv"
 file_variant_table = args$file_variant_table
 file_annotations = args$file_annotations
 
@@ -172,8 +171,7 @@ file_BLOOM_mutation_csv = args$bloom
 
 file_variant_filiations_csv = args$lineages
 
-antibody_escape_score_raw = read_csv(file_BLOOM_mutation_csv,
-                                     col_types = "cccicciccdcddddcic")
+antibody_escape_score_raw = read_csv(file_BLOOM_mutation_csv, col_types = "cccicciccdcddddcic")
 
 ## Prepare the BLOOM score
 antibody_escape_score_summary = suppressMessages( antibody_escape_score_raw %>%
@@ -222,31 +220,27 @@ VariantsOfInterest = suppressMessages(ECDC_variants %>% filter(Status == "VOI") 
 
 ## VOCAL file
 
-var_pheno = read_tsv(file_variant_table,
-                     col_type = "ccccicicc") %>%
-  mutate(type = factor(type,
-                       levels = VARIANT_TYPE_LEVELS)) %>%
+var_pheno = read_tsv(file_variant_table, col_type = "ccccicicc") %>%
+  mutate(type = factor(type, levels = VARIANT_TYPE_LEVELS)) %>%
   complete(type = type)
 
 ## Metadata files
 
 if (file.exists(file_annotations)) {
-  metadata = read_tsv(file_annotations, col_types = cols()) #, show_col_types = FALSE)
+  metadata = read_tsv(file_annotations, col_types = cols())
+  if (!(ID_COL %in% colnames(metadata))) {
+    stop( "No column with ID information in the metadata table, this column is required, exiting")
+  }
   if (!(LINEAGE_COL %in% colnames(metadata))) {
     stop( "No column with LINEAGE information in the metadata table, this column is required, exiting")
   }
-  if (!(DATE_COL %in% colnames(metadata))) {
-    stop(
-      "No column with time information in the metadata table. this column is required, exiting"
-    )
-  }
-  if (!(GEOLOC_COL %in% colnames(metadata))) {
-    warning(
-      "No column with geolocalisation information in the metadata table some infos will be missing"
-    )
-  }
+  #if (!(DATE_COL %in% colnames(metadata))) {
+  #  stop("No column with time information in the metadata table. this column is required, exiting")
+  #}
+  #if (!(GEOLOC_COL %in% colnames(metadata))) {
+  #  warning("No column with geolocalisation information in the metadata table some infos will be missing")
+  #}
   
-  # metadata = rename(metadata, "lineage" = LINEAGE_COL)
   all_reports = suppressMessages(metadata %>%
     mutate(across(any_of(DATE_COL),  ~ date(.x))) %>%
     filter(across(any_of(DATE_COL), ~ . >= date(earliestdate))) %>%
@@ -264,7 +258,6 @@ if (file.exists(file_annotations)) {
 } else{
   warning("No meta information is given \n")
   
-  # metadata <-  data.frame()
   metadata = var_pheno %>% distinct(ID)
   metadata[LINEAGE_COL] <- 'Other'
   metadata[DATE_COL] <- NA
