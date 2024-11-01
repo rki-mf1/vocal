@@ -551,6 +551,15 @@ hamming_tibble = function(tab) {
 get_sequence_clusters = function(tab, max_dist = Hamming_dist_clustering) {
   matdists = hamming_tibble(tab)
   g = graph.adjacency(matdists <= max_dist, mode = "undirected")
+
+  # Check if there are any entries in the distance matrix
+  if (nrow(matdists) == 0) {
+    return(tibble(
+      ID = character(0),
+      cluster_ID = integer(0),
+      cluster_size = integer(0)
+    ))
+  }
   clus = components(g)
   tibble(
     ID = tab$ID,
