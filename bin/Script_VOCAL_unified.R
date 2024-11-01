@@ -549,22 +549,16 @@ hamming_tibble = function(tab) {
 ## Get the cluster from a table tab where first column is the ID and
 ## the other ones are the mutation patterns
 get_sequence_clusters = function(tab, max_dist = Hamming_dist_clustering) {
+  # Calculate the Hamming distance matrix
   matdists = hamming_tibble(tab)
+  # Create graph and cluster components
   g = graph.adjacency(matdists <= max_dist, mode = "undirected")
-
-  # Check if there are any entries in the distance matrix
-  if (nrow(matdists) == 0) {
-    return(tibble(
-      ID = character(0),
-      cluster_ID = integer(0),
-      cluster_size = integer(0)
-    ))
-  }
   clus = components(g)
+  
   tibble(
     ID = tab$ID,
     cluster_ID = clus$membership,
-    cluster_size = clus$csize[clus$membership],
+    cluster_size = clus$csize[clus$membership]
   )
 }
 
@@ -598,10 +592,21 @@ mutations_per_alert_level = suppressMessages(var_pheno_summary_wide_with_alert  
 alert_level_groups_with_clusters = mutations_per_alert_level %>%
   mutate(clusters = map(data, get_sequence_clusters))
 
-alerts_with_clusters_ID = alert_level_groups_with_clusters %>% select(-data) %>%
-  unnest(c(alert_level, clusters)) %>%
-  rename(cluster_ID_in_alert_level = cluster_ID)
+alerts_with_clusters_ID <- if (nrow(alert_level_groups_with_clusters) == 0) {
+  tibble(
+  alert_level = character(),
+  ID = character(),
+  cluster_ID_in_alert_level = integer(),
+  cluster_size = integer()
+)
+} else {
+  alert_level_groups_with_clusters %>%
+    select(-data) %>%
+    unnest(c(alert_level, clusters)) %>%
+    rename(cluster_ID_in_alert_level = cluster_ID)
+}
 
+print(alerts_with_clusters_ID)
 vocal_list_samples_with_alert = suppressMessages(var_pheno_summary_wide_with_alert %>%
   left_join(alerts_with_clusters_ID) %>%
   arrange(desc(alert_level),
