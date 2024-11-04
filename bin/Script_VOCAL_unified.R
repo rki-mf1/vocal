@@ -606,7 +606,6 @@ alerts_with_clusters_ID <- if (nrow(alert_level_groups_with_clusters) == 0) {
     rename(cluster_ID_in_alert_level = cluster_ID)
 }
 
-print(alerts_with_clusters_ID)
 vocal_list_samples_with_alert = suppressMessages(var_pheno_summary_wide_with_alert %>%
   left_join(alerts_with_clusters_ID) %>%
   arrange(desc(alert_level),
